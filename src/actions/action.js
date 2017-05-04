@@ -6,6 +6,8 @@ export const ADD_TODO = 'ADD_TODO';
 export const TOGGLE_TODO = 'TOGGLE_TODO'
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
 
+export const FIRST_EVENT = 'FIRST+EVENT'
+
 /*
  * 其它的常量
  */
@@ -30,4 +32,11 @@ export function toggleTodo(index) {
 
 export function setVisibilityFilter(filter) {
   return { type: SET_VISIBILITY_FILTER, filter }
+}
+
+export function test(text) {
+    return {
+        type: FIRST_EVENT,
+        text
+    }
 }
