@@ -1,15 +1,25 @@
-import React, { Component } from 'react';
-import './scss/App.css';
-import '../common/reset.css';
+import React, { Component } from 'react'
+import './style/app.css'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+
+import List from '../list/List'
+import Play from '../Play/Play'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-		  
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props)
+        this.state = {}
+    }
+    render() {
+        return (
+            <Router>
+                <div id="app">
+                    <Route exact path="/" component={List} />
+                    <Route path="/play" component={Play} />
+                </div>
+            </Router>
+        )
+    }
 }
 
-export default App;
+export default App

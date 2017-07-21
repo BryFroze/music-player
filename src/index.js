@@ -1,17 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import App from './container/App';
-import firstApp from './reducers/first-reducer'
-// import './index.css';
-let store = createStore(firstApp)
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './common/js/rem'
+import './common/style/reset.css'
+import './common/style/app.css'
+import App from './components/App/App'
 
-store.subscribe(() => console.log(store.getState()))
-// console.log(store.getState())
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
+    <App />,
     document.getElementById('root')
-);
+)

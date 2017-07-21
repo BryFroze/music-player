@@ -1,0 +1,19 @@
+@keyframes rotate {
+  from {
+    transform: rotate(0); }
+  to {
+    transform: rotate(360deg); } }
+
+.rotate_img {
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  margin: auto;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 5rem;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  animation: rotate 15s linear infinite; }
