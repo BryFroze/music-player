@@ -6,10 +6,12 @@ class List extends Component {
     // 歌单id: 319907008
     // /api/search?keywords=海阔天空
     getList = () => {
-        this.props.getListData('/playlist/detail', 'id=24381616')
+        this.props.getListData('/playlist/detail', 'id=319907008')
     }
-    toPlay = () => {
-        this.props.history.push('play')
+    toPlay = (id) => {
+        this.props.history.push({
+            pathname: `play/${id}`
+        })
     }
     generateList = () => {
         if (this.props.list.listData.playlist) {
@@ -17,7 +19,7 @@ class List extends Component {
                 <ul>
                     {this.props.list.listData.playlist.tracks.map((item, index) => {
                         return (
-                            <li key={item.id} className="border" onClick={this.toPlay}>
+                            <li key={item.id} className="border" onClick={this.toPlay.bind(this, item.id)}>
                                 <p>
                                     {index}
                                 </p>

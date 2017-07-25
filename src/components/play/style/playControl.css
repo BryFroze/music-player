@@ -4,7 +4,8 @@
   right: 0;
   bottom: 20px;
   z-index: 30;
-  padding: 0 0.24rem; }
+  padding: 0 0.24rem;
+  color: rgba(255, 255, 255, 0.5); }
   .control_container .time_progress {
     display: flex;
     justify-content: space-between;
@@ -18,7 +19,7 @@
       margin-right: 4px;
       margin-left: 4px;
       border-radius: 4px;
-      background-color: rgba(73, 56, 41, 0.4); }
+      background-color: rgba(219, 219, 219, 0.4); }
       .control_container .time_progress span:nth-child(2) i {
         position: absolute;
         left: 0;
@@ -48,6 +49,8 @@
     .control_container .control_button div:nth-child(1) img, .control_container .control_button div:nth-child(3) img {
       width: 0.6rem;
       height: 1rem; }
+      .control_container .control_button div:nth-child(1) img path, .control_container .control_button div:nth-child(3) img path {
+        fill: rgba(73, 56, 41, 0.4); }
     .control_container .control_button div:nth-child(2) {
       flex: 1;
       display: inline-flex;

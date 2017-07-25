@@ -1,4 +1,10 @@
 #play {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
     .blur_bac {
         position: absolute;
         top: 0;
@@ -6,10 +12,33 @@
         left: 0;
         right: 0;
         z-index: 1;
-        background-color: rgba(0,0,0,0.2);
+        transform: scale(1.2);
         // background-image: url("../imgs/fade.jpg");
         background-size: 100% 100%;
         background-repeat: no-repeat;
         filter: blur(20px);
+    }
+    .blur_bac:after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 5;
+        background-color: rgba(27,33,39,0.5);
+    }
+    header {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 20;
+        height: 45px;
+        line-height: 45px;
+        font-size: 18px;
+        text-align: center;
+        color: #fff;
     }
 }

@@ -16,7 +16,7 @@ class App extends Component {
             <Router>
                 <div id="app">
                     <Route exact path="/" component={List} />
-                    <Route path="/play" component={Play} />
+                    <Route path="/play/:id" component={Play} />
                 </div>
             </Router>
         )
