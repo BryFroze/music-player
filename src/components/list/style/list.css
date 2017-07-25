@@ -1,0 +1,37 @@
+.list {
+  font-size: .26rem; }
+  .list header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    text-align: center; }
+  .list header.border {
+    border-bottom: 1px solid #e5e5e5; }
+  .list section {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: scroll; }
+    .list section ul li {
+      height: 1rem;
+      display: flex;
+      align-items: center; }
+      .list section ul li p:first-child {
+        width: 1rem;
+        text-align: center; }
+      .list section ul li .music_name {
+        flex: 1;
+        display: inline-flex;
+        flex-flow: column; }
+        .list section ul li .music_name span:first-child {
+          color: #333; }
+        .list section ul li .music_name span:last-child {
+          color: #999; }
+    .list section ul .border:after {
+      border-bottom: 1px solid #e5e5e5; }

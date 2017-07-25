@@ -1,17 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './common/js/rem'
+import './common/style/reset.css'
+import './common/style/app.css'
+import './common/style/patch.css'
+import App from './components/app/App'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import App from './container/App';
-import firstApp from './reducers/first-reducer'
-// import './index.css';
-let store = createStore(firstApp)
+import thunkMiddleware from 'redux-thunk'
+import player from './reducers/appReducer'
 
-store.subscribe(() => console.log(store.getState()))
-// console.log(store.getState())
+const store = createStore(
+    player,
+    applyMiddleware(thunkMiddleware)
+)
+
 ReactDOM.render(
     <Provider store={store}>
         <App />
     </Provider>,
     document.getElementById('root')
-);
+)

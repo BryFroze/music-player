@@ -1,0 +1,49 @@
+.list {
+    font-size: .26rem;
+    header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px;
+        line-height: 50px;
+        font-size: 18px;
+        text-align: center;
+    }
+    header.border {
+        border-bottom: 1px solid #e5e5e5;
+    }
+    section {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: scroll;
+        ul {
+            li {
+                height: 1rem;
+                display: flex;
+                align-items: center;
+                p:first-child {
+                    width: 1rem;
+                    text-align: center;
+                }
+                .music_name {
+                    flex: 1;
+                    display: inline-flex;
+                    flex-flow: column;
+                    span:first-child {
+                        color: #333;
+                    }
+                    span:last-child {
+                        color: #999;
+                    }
+                }
+            }
+            .border:after {
+                border-bottom: 1px solid #e5e5e5;
+            }
+        }
+    }
+}
