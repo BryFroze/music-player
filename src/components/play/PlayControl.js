@@ -29,7 +29,8 @@ class PlayControl extends Component {
             },
             url: '',
             playingTime: 0,
-            timer: 0
+            timer: 0,
+            musicTime: 0
         }
     }
     // 计算进度条可拖动的最大距离(随屏幕变化)
@@ -91,21 +92,11 @@ class PlayControl extends Component {
         })
     }
     // 初始化数据
-    initData = async () => {
-        await this.getMusicData()
-        let myAudio = document.getElementById('audio')
-        myAudio.onplaying = () => {
-            myAudio.play();
-        }
-    }
-    // 获取音乐的url
-    getMusicData() {
-        new Promise(resolve => {
-            util.post(`/music/url`, `id=${this.props.mid}`).then(res => {
-                this.setState({
-                    url: res.data[0].url
-                }, resolve)
-            })
+    initData = () => {
+        // await this.getMusicData()
+        this.props.myAudio.addEventListener('playing', () => {
+            // console.log(myAudio.duration)
+            this.props.myAudio.play()
         })
     }
     // 转换播放时间(毫秒到分钟)
@@ -119,17 +110,15 @@ class PlayControl extends Component {
     }
     // 播放时间定时器
     playInterval() {
-        if (parseInt(this.state.playingTime/1000) <= parseInt(this.props.musicTime/1000)) {
-            this.state.timer = setTimeout(() => {
-                this.setState((prevState) => {
-                    return {
-                        playingTime: prevState.playingTime + 1000
-                    }
-                })
-                this.circleLoop()
-                this.playInterval()
-            }, 1000)
-        }
+        this.props.myAudio.addEventListener('timeupdate', this.handler)
+    }
+    handler = () => {
+        this.setState((prevState) => {
+            return {
+                playingTime: parseInt(this.props.myAudio.currentTime)*1000
+            }
+        })
+        this.circleLoop()
     }
     // 随时间走动的圆点
     circleLoop() {
@@ -142,12 +131,15 @@ class PlayControl extends Component {
         setTimeout(() => {
             this.calDistance()
         }, 0)
-        this.initData()
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.musicTime !== 0) {
+        if (nextProps.musicTime !== 0 && nextProps.myAudio) {
             this.playInterval()
+            this.initData()
         }
+    }
+    componentWillUnmount() {
+        this.props.myAudio.removeEventListener('timeupdate', this.handler)
     }
     render() {
         return (
@@ -174,9 +166,6 @@ class PlayControl extends Component {
                     <div className="list">
                         <img src={list} alt=""/>
                     </div>
-                </div>
-                <div className="real_audio">
-                    <audio src={this.state.url} type="audio/mpeg" autoPlay id="audio" loop></audio>
                 </div>
             </div>
         )

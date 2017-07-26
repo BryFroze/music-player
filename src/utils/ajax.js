@@ -7,7 +7,7 @@ export default {
     post(key, query) {
         return new Promise((resolve, reject) => {
             // console.log(url+key)
-            axios.post(`${url+key}?${query}`).then(res => {
+            axios.post(`http://www.by2z.cn${url+key}?${query}`).then(res => {
                 if (res.status === 200) resolve(res.data);
             }).catch(err => {
                 console.error(err)

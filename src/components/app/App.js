@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 // import List from '../list/List'
 import List from '../../container/ListContainer'
-import Play from '../play/Play'
+import Play from '../../container/Play'
+import RealAudio from '../../container/RealAudio'
 
 class App extends Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class App extends Component {
         return (
             <Router>
                 <div id="app">
+                    <RealAudio />
                     <Route exact path="/" component={List} />
                     <Route path="/play/:id" component={Play} />
                 </div>
