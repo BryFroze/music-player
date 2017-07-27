@@ -5,6 +5,10 @@ import './style/list.css'
 class List extends Component {
     // 歌单id: 319907008
     // /api/search?keywords=海阔天空
+    constructor() {
+        super()
+        this.scrollEl = null
+    }
     getList = () => {
         this.props.getListData('/playlist/detail', 'id=319907008')
     }
@@ -40,6 +44,13 @@ class List extends Component {
     }
     componentDidMount() {
         this.getList()
+        this.scrollEl.scrollTop = this.props.scrollDis
+    }
+    componentWillUnmount() {
+        if (this.scrollEl) {
+            let scrollDis = this.scrollEl.scrollTop
+            this.props.saveScrollDis(scrollDis)
+        }
     }
     render () {
         return (
@@ -47,7 +58,7 @@ class List extends Component {
                 <header className="border">
                     {this.props.list.title}
                 </header>
-                <section>
+                <section ref={el => this.scrollEl = el}>
                      {this.generateList()} 
                 </section>
             </div>

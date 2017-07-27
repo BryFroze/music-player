@@ -9,6 +9,9 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import player from './reducers/appReducer'
+import Fastclick from 'fastclick'
+
+Fastclick.attach(document.body)
 
 const store = createStore(
     player,

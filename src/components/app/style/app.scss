@@ -1,4 +1,11 @@
 #app {
     position: relative;
     height: 100%;
+    max-width: 768px;
+    // max-height: 1024px;
+    // overflow: scroll;
+}
+#app.border:after {
+    z-index: -1;
+    border-right: 1px solid #e5e5e5;
 }

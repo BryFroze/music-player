@@ -20,6 +20,7 @@ class PlayControl extends Component {
         super()
         this.maxDragEl = null
         this.dragEl = null
+        this.type = 0
         this.state = {
             maxDragDis: 0,
             minDragDis: 0,
@@ -81,10 +82,27 @@ class PlayControl extends Component {
     }
     // 切换播放和暂停按钮
     switchPlayIcon() {
-        return this.state.playBtn.isPaused ? <img onClick={this.switchPlayBtn} src={paused} alt=""/> : <img onClick={this.switchPlayBtn} src={play} alt=""/>
+        return this.state.playBtn.isPaused ? 
+        <img onClick={this.switchPlayBtn} src={play} alt=""/> : 
+        <img onClick={this.switchPlayBtn} src={paused} alt=""/>
+    }
+    switchPlayTypeIcon = () => {
+        return this.type === 0 ?
+            <img src={loop} alt="" onClick={this.switchPlayType}/> : 
+            <img src={random} alt="" onClick={this.switchPlayType}/>
+    }
+    switchPlayType = () => {
+        this.type === 0 ?
+        this.type = 1 :
+        this.type = 0
     }
     // 播放按钮点击事件
     switchPlayBtn = () => {
+        if (this.state.playBtn.isPaused) {
+            this.props.myAudio.play()
+        } else {
+            this.props.myAudio.pause()
+        }
         this.setState({
             playBtn: {
                 isPaused: !this.state.playBtn.isPaused
@@ -115,7 +133,7 @@ class PlayControl extends Component {
     handler = () => {
         this.setState((prevState) => {
             return {
-                playingTime: parseInt(this.props.myAudio.currentTime)*1000
+                playingTime: parseInt(this.props.myAudio.currentTime, 10)*1000
             }
         })
         this.circleLoop()
@@ -155,7 +173,8 @@ class PlayControl extends Component {
                 </div>
                 <div className="control_button">
                     <div className="play_order">
-                         <img src={loop} alt=""/>
+                        {this.switchPlayTypeIcon()}
+                         {/* <img src={loop} alt=""/> */}
                         {/* {loop} */}
                     </div>
                     <div>

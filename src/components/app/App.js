@@ -14,8 +14,8 @@ class App extends Component {
     }
     render() {
         return (
-            <Router>
-                <div id="app">
+            <Router basename="/react-music/">
+                <div id="app" className="border">
                     <RealAudio />
                     <Route exact path="/" component={List} />
                     <Route path="/play/:id" component={Play} />

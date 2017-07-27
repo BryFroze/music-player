@@ -1,9 +1,10 @@
-import { SET_LIST } from './actionType'
+import { SET_LIST, SAVE_SCROLL_DIS } from './actionType'
 import utils from '../utils/ajax'
 
 const initialState = {
     title: '音乐',
-    listData: {}
+    listData: {},
+    scrollDis: 0
 }
 
 export function getList(key, data) {
@@ -28,6 +29,10 @@ export function list(state = initialState, action) {
         case SET_LIST:
             return Object.assign({}, state, {
                 listData: action.data
+            })
+        case SAVE_SCROLL_DIS:
+            return Object.assign({}, state, {
+                scrollDis: action.dis
             })
         default:
             return state

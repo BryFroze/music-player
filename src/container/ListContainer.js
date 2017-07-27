@@ -4,7 +4,8 @@ import { getList } from '../reducers/listReducer'
 
 const mapStateToProps = (state) => {
     return {
-        list: state.list
+        list: state.list,
+        scrollDis: state.list.scrollDis
     }
 }
 
@@ -12,6 +13,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getListData: (key,data) => {
             dispatch(getList(key, data))
+        },
+        saveScrollDis(dis) {
+            dispatch({
+                type: 'SAVE_SCROLL_DIS',
+                dis
+            })
         }
     }
 }
