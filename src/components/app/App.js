@@ -6,16 +6,22 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import List from '../../container/ListContainer'
 import Play from '../../container/Play'
 import RealAudio from '../../container/RealAudio'
+import Loading from './Loading'
 
 class App extends Component {
     constructor(props) {
         super(props)
         this.state = {}
     }
+    componentDidMount() {
+        this.props.getCacheList()
+        // console.log(this.props)
+    }
     render() {
         return (
-            <Router basename="/react-music/">
+            <Router basename="/react-music">
                 <div id="app" className="border">
+                     {this.props.isLoading && <Loading />} 
                     <RealAudio />
                     <Route exact path="/" component={List} />
                     <Route path="/play/:id" component={Play} />

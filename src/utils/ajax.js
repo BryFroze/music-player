@@ -4,7 +4,7 @@ import axios from 'axios'
 const url = '/api'
 // const home = 'http://www.by2z.cn'
 
-export default {
+const ajax =  {
     post(key, query) {
         return new Promise((resolve, reject) => {
             // console.log(url+key)
@@ -16,3 +16,5 @@ export default {
         })
     }
 }
+
+export default ajax

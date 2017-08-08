@@ -12,20 +12,25 @@ class List extends Component {
     getList = () => {
         this.props.getListData('/playlist/detail', 'id=319907008')
     }
-    toPlay = (id) => {
+    toPlay = (id, index) => {
+        this.props.updatePlayNumber(index)
         this.props.history.push({
             pathname: `play/${id}`
         })
     }
+    // 生成歌曲列表html函数
     generateList = () => {
         if (this.props.list.listData.playlist) {
             return (
                 <ul>
                     {this.props.list.listData.playlist.tracks.map((item, index) => {
                         return (
-                            <li key={item.id} className="border" onClick={this.toPlay.bind(this, item.id)}>
+                            <li 
+                                key={item.id} 
+                                className="border" 
+                                onClick={this.toPlay.bind(this, item.id, index)}>
                                 <p>
-                                    {index}
+                                    {index+1}
                                 </p>
                                 <p className="music_name">
                                     <span>
@@ -59,7 +64,7 @@ class List extends Component {
                     {this.props.list.title}
                 </header>
                 <section ref={el => this.scrollEl = el}>
-                     {this.generateList()} 
+                     {this.generateList()}
                 </section>
             </div>
         )

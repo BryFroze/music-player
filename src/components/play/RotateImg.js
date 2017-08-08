@@ -13,16 +13,20 @@ class RotateImg extends Component {
     switchAnimate = () => {
         this.setState({
             animationStyle: {
-                animationPlayState: this.state.animationStyle.animationPlayState === 'running' ? 'paused' : 'running'
+                animationPlayState: this.props.isPlay ? 'paused' : 'running'
             }
         })
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isPlay !== this.props.isPlay) {
+            this.switchAnimate()
+        }
     }
     render() {
         return (
             <div
                 className="rotate_img"
-                style={{...this.state.animationStyle, backgroundImage: `url(${this.props.picUrl})`}}
-                onClick={this.switchAnimate}>
+                style={{...this.state.animationStyle, backgroundImage: `url(${this.props.picUrl})`}}>
             </div>
         )
     }

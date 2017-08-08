@@ -19,6 +19,12 @@ const mapDispatchToProps = (dispatch) => {
                 type: 'SAVE_SCROLL_DIS',
                 dis
             })
+        },
+        updatePlayNumber(number) {
+            dispatch({
+                type: 'UPDATE_PLAY_NUMBER',
+                number
+            })
         }
     }
 }

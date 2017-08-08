@@ -14,17 +14,22 @@ import util from '../../utils/ajax'
 class PlayControl extends Component {
     static propTypes = {
         musicTime: PropTypes.number,
-        mid: PropTypes.string
+        mid: PropTypes.string,
+        playlist: PropTypes.array,
+        playNumber: PropTypes.number,
+        initPlayNumber: PropTypes.func
     }
     constructor() {
         super()
         this.maxDragEl = null
         this.dragEl = null
-        this.type = 0
+        this.progressLine = null
+        this.playType = 0
         this.state = {
             maxDragDis: 0,
             minDragDis: 0,
             totalWidth: 375,
+            circleWidth: 0,
             playBtn: {
                 isPaused: false
             },
@@ -42,7 +47,8 @@ class PlayControl extends Component {
             let circleWidth = parseInt(getComputedStyle(this.dragEl).width, 10);
             this.setState({
                 maxDragDis: maxWidth - circleWidth,
-                totalWidth: document.body.clientWidth || document.documentElement.clientWidth
+                totalWidth: document.body.clientWidth || document.documentElement.clientWidth,
+                circleWidth: circleWidth
             }, resolve)
         })
     }
@@ -86,15 +92,16 @@ class PlayControl extends Component {
         <img onClick={this.switchPlayBtn} src={play} alt=""/> : 
         <img onClick={this.switchPlayBtn} src={paused} alt=""/>
     }
+    // 切换播放模式
     switchPlayTypeIcon = () => {
-        return this.type === 0 ?
+        return this.playType === 0 ?
             <img src={loop} alt="" onClick={this.switchPlayType}/> : 
             <img src={random} alt="" onClick={this.switchPlayType}/>
     }
     switchPlayType = () => {
-        this.type === 0 ?
-        this.type = 1 :
-        this.type = 0
+        this.playType === 0 ?
+        this.playType = 1 :
+        this.playType = 0
     }
     // 播放按钮点击事件
     switchPlayBtn = () => {
@@ -103,6 +110,7 @@ class PlayControl extends Component {
         } else {
             this.props.myAudio.pause()
         }
+        this.props.changePlayStatus()
         this.setState({
             playBtn: {
                 isPaused: !this.state.playBtn.isPaused
@@ -144,6 +152,34 @@ class PlayControl extends Component {
         // console.log(progress)
         let left = this.state.maxDragDis*progress
         this.dragEl.style.left = left + 'px'
+        this.progressLine.style.width = left + this.state.circleWidth/2 + 'px'
+    }
+    // 上一曲和下一曲
+    playNext = () => {
+        this.playChange(1)
+    }
+    playPrev = () => {
+        this.playChange(0)
+    }
+    playChange(type) {
+        this.props.myAudio.pause()
+        let number = this.props.playNumber
+        let length = this.props.playlist.length-1
+        let id;
+        if (type === 1) {
+            number++
+            if (number > length) number = 0
+            id = this.props.playlist[number].id
+        } else {
+            number--
+            if (number < 0) number = length
+            console.log(number)
+            id = this.props.playlist[number].id
+        }
+        this.props.history.replace({
+            pathname: `/play/${id}`
+        })
+        this.props.initPlayNumber(number)
     }
     componentDidMount() {
         setTimeout(() => {
@@ -151,6 +187,7 @@ class PlayControl extends Component {
         }, 0)
     }
     componentWillReceiveProps(nextProps) {
+        // 只有当myAudio元素正确获取时才能执行相关api操作
         if (nextProps.musicTime !== 0 && nextProps.myAudio) {
             this.playInterval()
             this.initData()
@@ -168,6 +205,7 @@ class PlayControl extends Component {
                         <i ref={el => this.dragEl = el} id="drag" onTouchStart={this.dragDown}>
                             <b></b>
                         </i>
+                        <i ref={el => this.progressLine = el}></i>
                     </span>
                     <span>{this.tranformTime(this.props.musicTime)}</span>
                 </div>
@@ -178,9 +216,9 @@ class PlayControl extends Component {
                         {/* {loop} */}
                     </div>
                     <div>
-                        <img src={prev} alt=""/>
+                        <img src={prev} alt="" onClick={this.playPrev}/>
                         {this.switchPlayIcon()}
-                        <img src={next} alt=""/>
+                        <img src={next} alt="" onClick={this.playNext}/>
                     </div>
                     <div className="list">
                         <img src={list} alt=""/>
