@@ -1,0 +1,23 @@
+.tab_header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #fff;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  font-size: 12px; }
+  .tab_header.border:after {
+    border-bottom: 1px solid #e5e5e5; }
+  .tab_header p {
+    flex: 1;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    z-index: 20; }
+  .tab_header p.active {
+    color: #d0685b; }
+  .tab_header p.border:after {
+    border-bottom: 1px solid #d0685b; }

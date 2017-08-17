@@ -34,8 +34,8 @@ class Play extends Component {
     getMusicLyric(id) {
         this.props.getData(`/lyric`, `id=${id}`).then(res => {
             // console.log(res)
-            let lrcStr = res.lrc.lyric
-            let arr = lrcStr.split('\n')
+            // let lrcStr = res.lrc.lyric
+            // let arr = lrcStr.split('\n')
 
             // console.log(arr)
 

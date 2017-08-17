@@ -6,8 +6,10 @@ import './common/style/app.css'
 import './common/style/patch.css'
 import App from './container/AppContainer'
 // import App from './components/app/App'
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
+import createHistory from 'history/createBrowserHistory'
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 import thunkMiddleware from 'redux-thunk'
 import player from './reducers/appReducer'
 import Fastclick from 'fastclick'
@@ -15,16 +17,23 @@ import Fastclick from 'fastclick'
 Fastclick.attach(document.body)
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const history = createHistory()
+const middlewareOfRouter = routerMiddleware(history)
 const store = createStore(
-    player,
+    combineReducers({
+        ...player,
+        router: routerReducer
+    }),
     composeEnhancers(
-        applyMiddleware(thunkMiddleware)
+        applyMiddleware(thunkMiddleware,middlewareOfRouter)
     )
 )
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <ConnectedRouter history={history}>
+            <App />
+        </ConnectedRouter>
     </Provider>,
     document.getElementById('root')
 )

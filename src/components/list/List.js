@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './style/list.css'
-// import ajaxUtil from '../../utils/ajax'
+import Tab from '../tab/Tab'
 
 class List extends Component {
     // 歌单id: 319907008
@@ -66,6 +66,7 @@ class List extends Component {
                 <section ref={el => this.scrollEl = el}>
                      {this.generateList()}
                 </section>
+                <Tab match={this.props.match} history={this.props.history} />
             </div>
         )
     }

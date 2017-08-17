@@ -8,7 +8,7 @@ import play from '../../icon/play.svg'
 import next from '../../icon/next.svg'
 import list from '../../icon/list.svg'
 import random from '../../icon/random.svg'
-import util from '../../utils/ajax'
+// import util from '../../utils/ajax'
 // import audiosrc from './source/faded.mp3'
 
 class PlayControl extends Component {
@@ -41,7 +41,6 @@ class PlayControl extends Component {
     }
     // 计算进度条可拖动的最大距离(随屏幕变化)
     calDistance() {
-        // FIXME: ref用法变更
         return new Promise((resolve, reject) => {
             let maxWidth = parseInt(getComputedStyle(this.maxDragEl).width, 10);
             let circleWidth = parseInt(getComputedStyle(this.dragEl).width, 10);
@@ -128,7 +127,7 @@ class PlayControl extends Component {
     // 转换播放时间(毫秒到分钟)
     tranformTime = (time) => {
         let curTime = Math.floor(time/1000)
-        let minute = parseInt(curTime/60)
+        let minute = parseInt(curTime/60, 10)
         let second = curTime%60
         if (minute < 10) minute = '0' + minute
         if (second < 10) second = '0' + second

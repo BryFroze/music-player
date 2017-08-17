@@ -1,5 +1,4 @@
 import { SET_LIST, SAVE_SCROLL_DIS, SET_PLAY_LIST } from './actionType'
-import ajax from '../utils/ajax'
 import storage from '../utils/storage'
 import { ajaxPost } from './ajax'
 
