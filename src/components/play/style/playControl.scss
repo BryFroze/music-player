@@ -31,7 +31,7 @@
                 border-radius: 10px;
                 border: 1px solid #e5e5e5;
                 background-color: #fff;
-                b {
+                .red_bullet {
                     position: absolute;
                     left: 0;
                     right: 0;
@@ -42,6 +42,36 @@
                     height: 2px;
                     border-radius: 2px;
                     background-color: red;
+                }
+                .cache_loading {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    animation: loading 0.5s linear infinite;
+                    b {
+                        position: absolute;
+                        width: 5px;
+                        height: 1px;
+                        left: 0;
+                        top: 5px;
+                        transform-origin: right center;
+                        background-color: #ff0987;
+                        opacity: 0.6;
+                    }
+                    b:nth-child(2) {
+                        transform: rotate(90deg);
+                        opacity: 0.5;
+                    }
+                    b:nth-child(3) {
+                        transform: rotate(180deg);
+                        opacity: 0.4;
+                    }
+                    b:nth-child(4) {
+                        transform: rotate(270deg);
+                        opacity: 0.3;
+                    }
                 }
             }
             i:last-child {
@@ -83,5 +113,13 @@
                 height: 1.2rem;
             }
         }
+    }
+}
+@keyframes loading {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

@@ -36,7 +36,8 @@ class PlayControl extends Component {
             url: '',
             playingTime: 0,
             timer: 0,
-            musicTime: 0
+            musicTime: 0,
+            caching: true
         }
     }
     // 计算进度条可拖动的最大距离(随屏幕变化)
@@ -119,7 +120,10 @@ class PlayControl extends Component {
     // 初始化数据
     initData = () => {
         // await this.getMusicData()
-        this.props.myAudio.addEventListener('playing', () => {
+        this.props.myAudio.addEventListener('canplay', () => {
+            this.setState({
+                caching: false
+            })
             this.props.myAudio.play()
         })
     }
@@ -155,9 +159,17 @@ class PlayControl extends Component {
     // 上一曲和下一曲
     playNext = () => {
         this.playChange(1)
+        this.resetPlayStatus()
     }
     playPrev = () => {
         this.playChange(0)
+        this.resetPlayStatus()
+    }
+    resetPlayStatus() {
+        this.setState({
+            caching: true,
+            playingTime: 0
+        })
     }
     playChange(type) {
         this.props.myAudio.pause()
@@ -200,7 +212,17 @@ class PlayControl extends Component {
                     <span>{this.tranformTime(this.state.playingTime)}</span>
                     <span ref={el => this.maxDragEl = el}>
                         <i ref={el => this.dragEl = el} id="drag" onTouchStart={this.dragDown}>
-                            <b></b>
+                            <b className="red_bullet"></b>
+                            {
+                                this.state.caching && (
+                                <b className="cache_loading">
+                                    <b></b>
+                                    <b></b>
+                                    <b></b>
+                                    <b></b>
+                                </b>
+                                )
+                            }
                         </i>
                         <i ref={el => this.progressLine = el}></i>
                     </span>

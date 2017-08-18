@@ -30,7 +30,7 @@
         border-radius: 10px;
         border: 1px solid #e5e5e5;
         background-color: #fff; }
-        .control_container .time_progress span:nth-child(2) i:first-child b {
+        .control_container .time_progress span:nth-child(2) i:first-child .red_bullet {
           position: absolute;
           left: 0;
           right: 0;
@@ -41,6 +41,31 @@
           height: 2px;
           border-radius: 2px;
           background-color: red; }
+        .control_container .time_progress span:nth-child(2) i:first-child .cache_loading {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          animation: loading 0.5s linear infinite; }
+          .control_container .time_progress span:nth-child(2) i:first-child .cache_loading b {
+            position: absolute;
+            width: 5px;
+            height: 1px;
+            left: 0;
+            top: 5px;
+            transform-origin: right center;
+            background-color: #ff0987;
+            opacity: 0.6; }
+          .control_container .time_progress span:nth-child(2) i:first-child .cache_loading b:nth-child(2) {
+            transform: rotate(90deg);
+            opacity: 0.5; }
+          .control_container .time_progress span:nth-child(2) i:first-child .cache_loading b:nth-child(3) {
+            transform: rotate(180deg);
+            opacity: 0.4; }
+          .control_container .time_progress span:nth-child(2) i:first-child .cache_loading b:nth-child(4) {
+            transform: rotate(270deg);
+            opacity: 0.3; }
       .control_container .time_progress span:nth-child(2) i:last-child {
         position: absolute;
         left: 0;
@@ -71,3 +96,9 @@
       .control_container .control_button div:nth-child(2) img {
         width: 0.8rem;
         height: 1.2rem; }
+
+@keyframes loading {
+  from {
+    transform: rotate(0); }
+  to {
+    transform: rotate(360deg); } }
