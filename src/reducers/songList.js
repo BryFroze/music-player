@@ -1,6 +1,6 @@
 import { GET_SONG_LIST } from './actionType'
-import ajax from '../utils/ajax'
 import storage from '../utils/storage'
+import { ajaxPost } from './ajax'
 
 const initialState = {
     listData: []
@@ -12,8 +12,7 @@ export function getSongList() {
         if (!state.songList.listData.length) {
             let cacheList = storage.read('songList')
             if (!cacheList) {
-                ajax.post('/top/playlist/highquality', 'cat=欧美&limit=30').then(res => {
-                    console.log(res)
+                dispatch(ajaxPost('/top/playlist/highquality', 'cat=欧美&limit=30')).then(res => {
                     let list = res.playlists
                     let listStr = JSON.stringify(list)
                     dispatch({

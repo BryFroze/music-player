@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import PlayControl from './PlayControl'
 import RotateImg from './RotateImg'
 import './style/play.css'
-import storage from '../../utils/storage'
+let Spinner = require('react-spinkit')
 
 class Play extends Component {
     static propTypes = {
         playStatus: PropTypes.object,
-        playlist: PropTypes.array,
+        playingList: PropTypes.object,
         initPlayNumber: PropTypes.func,
         myAudio: PropTypes.object
     }
@@ -41,17 +41,9 @@ class Play extends Component {
 
         })
     }
-    // 初始化播放页码
-    initPlayNumber() {
-        let number = parseInt(storage.read('playNumber'), 10)
-        if (number && number !== this.props.playStatus.playNumber) {
-            this.props.initPlayNumber(number)
-        }
-    }
     componentDidMount() {
         this.getMusicDetail(this.props.match.params.id)
         this.getMusicUrl(this.props.match.params.id)
-        this.initPlayNumber(this.props.match.params.id)
         // this.getMusicLyric()
     }
     componentWillReceiveProps(nextProps) {
@@ -78,9 +70,9 @@ class Play extends Component {
                     mid={this.props.match.params.id} 
                     musicTime={this.props.playStatus.musicTime}
                     myAudio={this.props.myAudio}
-                    playlist={this.props.playlist}
+                    playlist={this.props.playingList.list}
                     playNumber={this.props.playStatus.playNumber} 
-                    initPlayNumber={this.props.initPlayNumber}
+                    updatePlayNumber={this.props.updatePlayNumber}
                     changePlayStatus={this.props.changePlayStatus}
                     history={this.props.history}/>
             </div>

@@ -120,7 +120,6 @@ class PlayControl extends Component {
     initData = () => {
         // await this.getMusicData()
         this.props.myAudio.addEventListener('playing', () => {
-            // console.log(myAudio.duration)
             this.props.myAudio.play()
         })
     }
@@ -172,13 +171,12 @@ class PlayControl extends Component {
         } else {
             number--
             if (number < 0) number = length
-            console.log(number)
             id = this.props.playlist[number].id
         }
         this.props.history.replace({
             pathname: `/play/${id}`
         })
-        this.props.initPlayNumber(number)
+        this.props.updatePlayNumber(number)
     }
     componentDidMount() {
         setTimeout(() => {

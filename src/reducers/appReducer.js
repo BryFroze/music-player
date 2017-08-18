@@ -4,13 +4,15 @@ import { audio } from './audioReducer'
 import { playStatus } from './playReducer'
 import { ajaxStatus } from './ajax'
 import { songList } from './songList'
+import { playingList } from './playingList'
 
 const player = {
     list,
     audio,
     playStatus,
     ajaxStatus,
-    songList
+    songList,
+    playingList
 }
 
 export default player

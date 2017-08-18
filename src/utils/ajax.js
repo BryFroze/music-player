@@ -9,7 +9,7 @@ const ajax =  {
         return new Promise((resolve, reject) => {
             // console.log(url+key)
             axios.post(`${window.location.origin + url + key}?${query}`).then(res => {
-                if (res.status === 200) resolve(res.data);
+                res.status === 200 ? resolve(res.data) : reject(res.data)
             }).catch(err => {
                 console.error(err)
             })

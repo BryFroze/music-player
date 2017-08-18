@@ -6,7 +6,8 @@ const initialState = {
     title: '音乐',
     listData: {},
     scrollDis: 0,
-    playlist: []
+    playlist: [],
+    loading: false
 }
 
 export function getList(key, data) {
@@ -23,6 +24,7 @@ export function getList(key, data) {
                     playlist: obj.playlist.tracks
                 })
             } else if (key && data) {
+                state.list.loading = true
                 dispatch(ajaxPost(key, data)).then(res => {
                     dispatch(setList(res))
                     dispatch({
@@ -33,6 +35,10 @@ export function getList(key, data) {
                         name: 'list',
                         data: JSON.stringify(res)
                     })
+                    state.list.loading = false
+                }).catch(res => {
+                    state.list.loading = false
+                    console.error(`列表数据获取失败${res}`)
                 })
             }
         }

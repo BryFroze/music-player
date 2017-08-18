@@ -1,6 +1,8 @@
 import { INIT_PLAYING_STATE, SET_MUSIC_URL, UPDATE_PLAY_NUMBER, CHANGE_PLAY_STATUS } from './actionType'
 import storage from '../utils/storage'
 
+let playNumber = parseInt(storage.read('playNumber'), 10) || 0
+
 const initialState = {
     title: '歌曲',
     picUrl: '',
@@ -8,7 +10,7 @@ const initialState = {
     musicTime: 0,
     musicId: 0,
     musicUrl: '',
-    playNumber: 0,
+    playNumber: playNumber,
     isPlay: true
 }
 

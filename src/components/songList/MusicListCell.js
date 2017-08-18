@@ -9,7 +9,7 @@ class MusicListCell extends Component {
     }
     render () {
         return (
-            <div className="list_cell" onClick={this.props.switchListDetail.bind(null, true,this.props.cellData.id, this.props.cellData.coverImgUrl)}>
+            <div className="list_cell" onClick={this.props.switchListDetail.bind(null, true,this.props.cellData)}>
                 <div className="background">
                     <img src={this.props.cellData.coverImgUrl} alt="" />
                 </div>

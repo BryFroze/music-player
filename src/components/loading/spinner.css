@@ -1,0 +1,17 @@
+.loading {
+  position: fixed;
+  width: 1rem;
+  height: 1rem;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 100;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.loading_hide {
+  display: none; }

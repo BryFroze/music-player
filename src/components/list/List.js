@@ -8,11 +8,15 @@ class List extends Component {
     constructor() {
         super()
         this.scrollEl = null
+        this.state = {
+            id: 319907008
+        }
     }
     getList = () => {
         this.props.getListData('/playlist/detail', 'id=319907008')
     }
     toPlay = (id, index) => {
+        this.props.updatePlayingList(this.props.list.playlist, this.props.list.listData.playlist.id)
         this.props.updatePlayNumber(index)
         this.props.history.push({
             pathname: `play/${id}`

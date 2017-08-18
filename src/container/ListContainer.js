@@ -25,6 +25,15 @@ const mapDispatchToProps = (dispatch) => {
                 type: 'UPDATE_PLAY_NUMBER',
                 number
             })
+        },
+        updatePlayingList(list, listId) {
+            dispatch({
+                type: 'SET_PLAYING_LIST',
+                data: {
+                    list,
+                    listId
+                }
+            })
         }
     }
 }

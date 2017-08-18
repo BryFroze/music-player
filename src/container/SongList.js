@@ -11,6 +11,21 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getSongList() {
             dispatch(getSongList())
+        },
+        updatePlayingList(list, listId) {
+            dispatch({
+                type: 'SET_PLAYING_LIST',
+                data: {
+                    list,
+                    listId
+                }
+            })
+        },
+        updatePlayNumber(number) {
+            dispatch({
+                type: 'UPDATE_PLAY_NUMBER',
+                number
+            })
         }
     }
 }

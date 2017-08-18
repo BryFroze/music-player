@@ -11,44 +11,95 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 4rem; }
+    height: 3.2rem;
+    display: flex;
+    flex-flow: column; }
     .list_detail .list_creator .detail_header {
+      position: relative;
       height: 40px;
       line-height: 40px;
-      display: flex;
+      display: inline-flex;
       z-index: 20;
       color: #fff; }
-      .list_detail .list_creator .detail_header.border:after {
-        border-bottom: 1px solid #e5e5e5; }
       .list_detail .list_creator .detail_header p:first-child {
         width: 1rem;
         z-index: 10;
         text-align: center; }
       .list_detail .list_creator .detail_header p:nth-child(2) {
         flex: 1;
+        margin-left: -1rem;
         text-align: center; }
     .list_detail .list_creator .list_creator_info {
-      display: flex;
-      z-index: 20; }
-      .list_detail .list_creator .list_creator_info p:first-child img {
-        width: 2rem; }
+      flex: 1;
+      position: relative;
+      display: inline-flex;
+      z-index: 20;
+      padding: 0.2rem 0.2rem;
+      color: #fff; }
+      .list_detail .list_creator .list_creator_info p:first-child {
+        margin-right: .3rem;
+        font-size: .28rem; }
+        .list_detail .list_creator .list_creator_info p:first-child img {
+          height: 2rem;
+          border-radius: 4px; }
       .list_detail .list_creator .list_creator_info p:nth-child(2) {
+        height: 2rem;
         display: inline-flex;
         justify-content: center;
         flex-flow: column; }
+        .list_detail .list_creator .list_creator_info p:nth-child(2) span {
+          padding: .26rem 0; }
+        .list_detail .list_creator .list_creator_info p:nth-child(2) img {
+          height: .4rem;
+          border-radius: 100%;
+          vertical-align: middle; }
+        .list_detail .list_creator .list_creator_info p:nth-child(2) b {
+          display: inline-block;
+          font-weight: normal;
+          margin-left: 8px;
+          font-size: .24rem; }
   .list_detail .list_blur_bac {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 4rem;
+    height: 3.2rem;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    filter: blur(16px); }
+    filter: blur(20px);
+    transform: scale(1.2); }
   .list_detail .detail_content {
     position: absolute;
-    top: 4rem;
+    top: 3.2rem;
     right: 0;
     bottom: 0;
     left: 0;
+    background-color: #fff;
     overflow: scroll; }
+    .list_detail .detail_content .sk-cube-grid {
+      margin: .3rem auto; }
+    .list_detail .detail_content .content_song_list {
+      display: flex;
+      height: 1rem;
+      width: 100%; }
+      .list_detail .detail_content .content_song_list.border:after {
+        border-bottom: 1px solid #e5e5e5; }
+      .list_detail .detail_content .content_song_list p {
+        width: 100%; }
+      .list_detail .detail_content .content_song_list p:first-child {
+        width: 1rem;
+        line-height: 1rem;
+        text-align: center; }
+      .list_detail .detail_content .content_song_list p:nth-child(2) {
+        flex: 1;
+        display: inline-flex;
+        flex-flow: column;
+        justify-content: center;
+        overflow: hidden; }
+        .list_detail .detail_content .content_song_list p:nth-child(2) span {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden; }
+        .list_detail .detail_content .content_song_list p:nth-child(2) span:nth-child(2) {
+          color: #999;
+          font-size: .22rem; }

@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
     return {
         playStatus: state.playStatus,
         myAudio: state.audio.myAudio,
-        playlist: state.list.playlist
+        playingList: state.playingList
     }
 }
 
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
                 url
             })
         },
-        initPlayNumber(number) {
+        updatePlayNumber(number) {
             dispatch({
                 type: 'UPDATE_PLAY_NUMBER',
                 number

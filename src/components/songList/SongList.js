@@ -17,7 +17,9 @@ class SongList extends Component {
             tab: 0,
             showDetail: false,
             listId: 0,
-            imgUrl: ""
+            imgUrl: "",
+            title: "",
+            creator: {}
         }
     }
     changeTab = (index) => {
@@ -25,14 +27,16 @@ class SongList extends Component {
             tab: index
         })
     }
-    switchListDetail = (boo, id, imgUrl) => {
+    switchListDetail = (boo, item) => {
         this.setState({
             showDetail: boo
         })
-        if (id && imgUrl) {
+        if (item) {
             this.setState({
-                listId: id,
-                imgUrl: imgUrl
+                listId: item.id,
+                imgUrl: item.coverImgUrl,
+                title: item.name,
+                creator: item.creator
             })
         }
     }
@@ -59,7 +63,11 @@ class SongList extends Component {
                         <ListDetail
                             listId={this.state.listId}
                             imgUrl={this.state.imgUrl}
-                            switchListDetail={this.switchListDetail} />
+                            title={this.state.title}
+                            creator={this.state.creator}
+                            switchListDetail={this.switchListDetail}
+                            updatePlayingList={this.props.updatePlayingList}
+                            updatePlayNumber={this.props.updatePlayNumber} />
                     )
                 }
             </div>

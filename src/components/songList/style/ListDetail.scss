@@ -12,16 +12,16 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 4rem;
+        height: 3.2rem;
+        display: flex;
+        flex-flow: column;
         .detail_header {
+            position: relative;
             height: 40px;
             line-height: 40px;
-            display: flex;
+            display: inline-flex;
             z-index: 20;
             color: #fff;
-            &.border:after {
-                border-bottom: 1px solid #e5e5e5;
-            }
             p:first-child {
                 width: 1rem;
                 z-index: 10;
@@ -29,21 +29,44 @@
             }
             p:nth-child(2) {
                 flex: 1;
+                margin-left: -1rem;
                 text-align: center;
             }
         }
         .list_creator_info {
-            display: flex;
+            flex: 1;
+            position: relative;
+            display: inline-flex;
             z-index: 20;
+            padding: 0.2rem 0.2rem;
+            color: #fff;
             p:first-child {
+                margin-right: .3rem;
+                font-size: .28rem;
                 img {
-                    width: 2rem;
+                    height: 2rem;
+                    border-radius: 4px;
                 }
             }
             p:nth-child(2) {
+                height: 2rem;
                 display: inline-flex;
                 justify-content: center;
                 flex-flow: column;
+                span {
+                    padding: .26rem 0;
+                }
+                img {
+                    height: .4rem;
+                    border-radius: 100%;
+                    vertical-align: middle;
+                }
+                b {
+                    display: inline-block;
+                    font-weight: normal;
+                    margin-left: 8px;
+                    font-size: .24rem;
+                }
             }
         }
     }
@@ -52,17 +75,55 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 4rem;
+        height: 3.2rem;
         background-repeat: no-repeat;
         background-size: 100% 100%;
-        filter: blur(16px);
+        filter: blur(20px);
+        transform: scale(1.2);
     }
     .detail_content {
         position: absolute;
-        top: 4rem;
+        top: 3.2rem;
         right: 0;
         bottom: 0;
         left: 0;
+        background-color: #fff;
         overflow: scroll;
+        .sk-cube-grid {
+            margin: .3rem auto;
+        }
+        .content_song_list {
+            display: flex;
+            height: 1rem;
+            width: 100%;
+            &.border:after {
+                border-bottom: 1px solid #e5e5e5;
+            }
+            p {
+                width: 100%;
+            }
+            p:first-child {
+                width: 1rem;
+                line-height: 1rem;
+                text-align: center;
+            }
+            p:nth-child(2) {
+                flex: 1;
+                display: inline-flex;
+                flex-flow: column;
+                justify-content: center;
+                overflow: hidden;
+                span {
+                    // width: 4rem;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+                span:nth-child(2) {
+                    color: #999;
+                    font-size: .22rem;
+                }
+            }
+        }
     }
 }

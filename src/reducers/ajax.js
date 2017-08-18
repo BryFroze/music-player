@@ -1,21 +1,37 @@
-import { AJAX_POST} from './actionType'
+import { LOADING_SWITCH, COUNT_POST_NUMBER } from './actionType'
 import ajax from '../utils/ajax'
 
 const ajaxState = {
-    isLoading: false
+    isLoading: false,
+    postCount: 0
 }
 
 export function ajaxPost(key, data){
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        let state = getState()
         dispatch({
-            type: AJAX_POST
+            type: LOADING_SWITCH,
+            loading: true
+        })
+        dispatch({
+            type: COUNT_POST_NUMBER,
+            cal: 1
         })
         return new Promise((resolve, reject) => {
             ajax.post(key, data).then(res => {
                 dispatch({
-                    type: AJAX_POST
+                    type: COUNT_POST_NUMBER,
+                    cal: -1
                 })
+                if (!state.ajaxStatus.postCount) {
+                    dispatch({
+                        type: LOADING_SWITCH,
+                        loading: false
+                    })
+                }
                 resolve(res)
+            }).catch(res => {
+                reject(res)
             })
         })
     }
@@ -23,9 +39,13 @@ export function ajaxPost(key, data){
 
 export function ajaxStatus(state = ajaxState, action) {
     switch(action.type) {
-        case AJAX_POST:
+        case LOADING_SWITCH:
             return Object.assign({}, state, {
-                isLoading: !state.isLoading
+                isLoading: action.loading
+            })
+        case COUNT_POST_NUMBER:
+            return Object.assign({}, state, {
+                postCount: state.postCount+action.cal
             })
         default:
             return state
