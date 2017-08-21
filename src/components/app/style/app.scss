@@ -3,7 +3,7 @@
     height: 100%;
     max-width: 768px;
     // max-height: 1024px;
-    // overflow: scroll;
+    overflow-x: hidden;
 }
 #app.border:after {
     z-index: -1;

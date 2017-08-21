@@ -1,7 +1,8 @@
 #app {
   position: relative;
   height: 100%;
-  max-width: 768px; }
+  max-width: 768px;
+  overflow-x: hidden; }
 
 #app.border:after {
   z-index: -1;

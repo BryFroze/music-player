@@ -37,7 +37,8 @@ class PlayControl extends Component {
             playingTime: 0,
             timer: 0,
             musicTime: 0,
-            caching: true
+            caching: true,
+            onThisCom: true
         }
     }
     // 计算进度条可拖动的最大距离(随屏幕变化)
@@ -121,9 +122,11 @@ class PlayControl extends Component {
     initData = () => {
         // await this.getMusicData()
         this.props.myAudio.addEventListener('canplay', () => {
-            this.setState({
-                caching: false
-            })
+            if (this.state.caching) {
+                this.setState({
+                    caching: false
+                })
+            }
             this.props.myAudio.play()
         })
     }

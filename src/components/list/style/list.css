@@ -28,10 +28,16 @@
       .list section ul li .music_name {
         flex: 1;
         display: inline-flex;
-        flex-flow: column; }
+        flex-flow: column;
+        overflow: hidden; }
         .list section ul li .music_name span:first-child {
+          font-size: 0.28rem;
           color: #333; }
         .list section ul li .music_name span:last-child {
-          color: #999; }
+          color: #999;
+          font-size: 0.22rem;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden; }
     .list section ul .border:after {
       border-bottom: 1px solid #e5e5e5; }
