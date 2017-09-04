@@ -3,10 +3,10 @@ import './style/app.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 // import List from '../list/List'
-import SongList from '../../container/SongList'
-import List from '../../container/ListContainer'
-import Play from '../../container/Play'
-import RealAudio from '../../container/RealAudio'
+import SongList from 'container/songList/SongList'
+import List from 'container/list/ListContainer'
+import Play from 'container/play/Play'
+import RealAudio from 'container/play/RealAudio'
 import Loading from '../loading/Spinner'
 class App extends Component {
     constructor(props) {

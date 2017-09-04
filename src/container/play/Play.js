@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import Play from '../components/play/Play'
-import { ajaxPost } from '../reducers/ajax'
+import Play from 'components/play/Play'
+import { ajaxPost } from 'reducers/ajax'
 
 /*
     播放页需要的状态：

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import RealAudio from '../components/play/RealAudio'
+import RealAudio from 'components/play/RealAudio'
 
 const mapStateToProps = state => {
     return {

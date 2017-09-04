@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import PlayControl from './PlayControl'
 import RotateImg from './RotateImg'
 import './style/play.css'
-let Spinner = require('react-spinkit')
 
 class Play extends Component {
     static propTypes = {

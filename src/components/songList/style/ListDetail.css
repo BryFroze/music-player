@@ -24,7 +24,8 @@
       .list_detail .list_creator .detail_header p:first-child {
         width: 1rem;
         z-index: 10;
-        text-align: center; }
+        text-align: center;
+        color: #ff0987; }
       .list_detail .list_creator .detail_header p:nth-child(2) {
         flex: 1;
         margin-left: -1rem;

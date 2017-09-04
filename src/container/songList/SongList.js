@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import SongList from '../components/songList/SongList'
-import { getSongList } from '../reducers/songList'
+import SongList from 'components/songList/SongList'
+import { getSongList } from 'reducers/songList'
 
 const mapStateToProps = (state) => {
     return {
