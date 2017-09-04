@@ -1,0 +1,20 @@
+.lyric_container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 90px;
+  bottom: 2.2rem;
+  padding: 0 0.3rem;
+  z-index: 30;
+  text-align: center;
+  overflow: hidden;
+  color: #969493; }
+  .lyric_container ul {
+    padding-top: 3rem;
+    transition: all 0.5s linear; }
+    .lyric_container ul li {
+      height: 0.8rem;
+      line-height: 0.8rem;
+      font-size: 0.28rem; }
+    .lyric_container ul .active {
+      color: #fff; }

@@ -26,7 +26,8 @@ class RotateImg extends Component {
         return (
             <div
                 className="rotate_img"
-                style={{...this.state.animationStyle, backgroundImage: `url(${this.props.picUrl})`}}>
+                style={{...this.state.animationStyle, backgroundImage: `url(${this.props.picUrl})`}}
+                onClick={this.props.switchLyric}>
             </div>
         )
     }

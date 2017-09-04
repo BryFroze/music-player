@@ -127,7 +127,6 @@ class PlayControl extends Component {
                     caching: false
                 })
             }
-            this.props.myAudio.play()
         })
     }
     // 转换播放时间(毫秒到分钟)
@@ -141,9 +140,9 @@ class PlayControl extends Component {
     }
     // 播放时间定时器
     playInterval() {
-        this.props.myAudio.addEventListener('timeupdate', this.handler)
+        this.props.myAudio.addEventListener('timeupdate', this.timeUpdate)
     }
-    handler = () => {
+    timeUpdate = () => {
         this.setState((prevState) => {
             return {
                 playingTime: parseInt(this.props.myAudio.currentTime, 10)*1000
@@ -206,7 +205,8 @@ class PlayControl extends Component {
         }
     }
     componentWillUnmount() {
-        this.props.myAudio.removeEventListener('timeupdate', this.handler)
+        this.props.myAudio.removeEventListener('timeupdate', this.timeUpdate)
+        this.props.myAudio.removeEventListener('ended', this.ended)
     }
     render() {
         return (

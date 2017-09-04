@@ -1,10 +1,12 @@
 .control_container {
   position: absolute;
+  height: 2rem;
   left: 0;
   right: 0;
-  bottom: 20px;
+  bottom: 0.2rem;
   z-index: 30;
   padding: 0 0.24rem;
+  overflow: hidden;
   color: rgba(255, 255, 255, 0.5); }
   .control_container .time_progress {
     display: flex;

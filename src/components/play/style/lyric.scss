@@ -1,0 +1,26 @@
+$lyricColor: #969493;
+
+.lyric_container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 90px;
+    bottom: 2.2rem;
+    padding: 0 0.3rem;
+    z-index: 30;
+    text-align: center;
+    overflow: hidden;
+    color: $lyricColor;
+    ul {
+        padding-top: 3rem;
+        transition: all 0.5s linear;
+        li {
+            height: 0.8rem;
+            line-height: 0.8rem;
+            font-size: 0.28rem;
+        }
+        .active {
+            color: #fff;
+        }
+    }
+}
