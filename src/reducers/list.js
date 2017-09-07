@@ -3,7 +3,7 @@ import storage from '../utils/storage'
 import { ajaxPost } from './ajax'
 
 const initialState = {
-    title: '音乐',
+    title: 'My Favourite',
     listData: {},
     scrollDis: 0,
     playlist: [],

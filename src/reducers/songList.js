@@ -1,10 +1,19 @@
-import { GET_SONG_LIST } from './actionType'
+import { GET_SONG_LIST, UPDATE_SINGER_LIST } from './actionType'
 import storage from '../utils/storage'
 import { ajaxPost } from './ajax'
 
 const initialState = {
-    listData: []
+    listData: [],
+    singerList: []
 }
+
+function getStateFromCache() {
+    let singerList = storage.read('singerList')
+    if (singerList) {
+        initialState.singerList = JSON.parse(singerList)
+    }
+}
+getStateFromCache()
 
 export function getSongList() {
     return (dispatch, getState) => {
@@ -39,6 +48,14 @@ export function songList(state = initialState, action) {
         case GET_SONG_LIST:
             return Object.assign({}, state, {
                 listData: action.data
+            })
+        case UPDATE_SINGER_LIST:
+            storage.save({
+                name: 'singerList',
+                data: JSON.stringify(action.list)
+            })
+            return Object.assign({}, state, {
+                singerList: action.list
             })
         default:
             return state

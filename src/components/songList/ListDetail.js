@@ -24,7 +24,6 @@ class ListDetail extends Component {
             loading: false
         }
     }
-    // get songlist's detail when its mount
     getSongListDetail() {
         let listId = storage.read('listId')
         let playlist = storage.read('playlist')

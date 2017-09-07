@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import List from 'components/list/List'
-import { getList } from 'reducers/listReducer'
+import { getList } from 'reducers/list'
 
 const mapStateToProps = (state) => {
     return {

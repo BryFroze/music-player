@@ -45,10 +45,11 @@ class Play extends Component {
             res.lrc && this.handleLyric(res.lrc.lyric)
         })
     }
+    // 处理歌词
     handleLyric(lyricStr) {
         let lyricArr = lyricStr.split(/\n/)
-        let arReg = /\[ar:*\]$/i
-        let tiReg = /\[ti:*\]$/i
+        // let arReg = /\[ar:*\]$/i
+        // let tiReg = /\[ti:*\]$/i
         let timeReg = /\[\d*:\d*(\.\d*)*\]/g
         let minReg = /\[\d+/
         let secReg = /:\d*(\.\d*)/
@@ -56,18 +57,17 @@ class Play extends Component {
         let arrayOfTime = []
         
         for (let i = 0; i < lyricArr.length; i++) {
-            let arArr = lyricArr[i].match(arReg)
-            let tiArr = lyricArr[i].match(tiReg)
+            // let arArr = lyricArr[i].match(arReg)
+            // let tiArr = lyricArr[i].match(tiReg)
             let timeArr = lyricArr[i].match(timeReg)
-            if (timeArr) {
+            if (timeArr && timeArr.length) {
                 let lyricStr = lyricArr[i].replace(timeArr[0], '')
-                // console.log(lyricStr)
                 if (lyricStr) {
                     for (let j = 0; j < timeArr.length; j++) {
                         let min = timeArr[j].match(minReg)[0].slice(1)
                         let sec = timeArr[j].match(secReg)[0].slice(1)
                         // console.log(timeArr[j], min, sec)
-                        let lyricTime = min*60000 + sec*1000 + ''
+                        let lyricTime = parseInt(min*60000 + sec*1000, 10) + ''
                         obj[lyricTime] = lyricStr
                         arrayOfTime.push(parseInt(lyricTime, 10))
                     }
@@ -80,6 +80,7 @@ class Play extends Component {
             arrayOfTime: arrayOfTime
         })
     }
+    // 切换歌词显示
     switchLyric = () => {
         this.setState(prevState => ({
             showLyric: !prevState.showLyric

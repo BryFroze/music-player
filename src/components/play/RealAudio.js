@@ -18,6 +18,7 @@ class RealAudio extends Component {
         super()
         this.audio = null
     }
+    // 循环下一曲
     playNext() {
         let number = this.props.playStatus.playNumber
         let list = this.props.playingList.list
@@ -28,7 +29,7 @@ class RealAudio extends Component {
         }
         id = list[number].id
         let location = this.props.location
-        if ('/play/'.indexOf(location.pathname)) {
+        if ('/play/'.indexOf(location.pathname) !== -1) {
             this.props.history.replace({
                 pathname: `/play/${id}`
             })
@@ -36,6 +37,7 @@ class RealAudio extends Component {
             this.getMusicUrl(id)
         }
     }
+    // 获取音乐url
     getMusicUrl(id) {
         this.props.getData(`/music/url`, `id=${id}`).then(res => {
             this.props.initMusicUrl(res.data[0].url)

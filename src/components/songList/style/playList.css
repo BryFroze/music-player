@@ -1,0 +1,8 @@
+.list_wrapper {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  padding-bottom: .1rem;
+  overflow: scroll; }

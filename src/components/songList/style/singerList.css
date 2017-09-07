@@ -1,0 +1,26 @@
+.singer_container {
+  position: absolute;
+  top: 45px;
+  bottom: 55px;
+  left: 0;
+  right: 0;
+  overflow-y: scroll; }
+  .singer_container ul li {
+    height: 1rem;
+    line-height: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0 0.24rem; }
+    .singer_container ul li .singer_pic {
+      margin-right: 0.4rem;
+      font-size: 0; }
+      .singer_container ul li .singer_pic img {
+        display: block;
+        height: 0.8rem;
+        width: 0.8rem;
+        border-radius: 50%; }
+    .singer_container ul li .singer_name {
+      flex: 1;
+      font-size: 0.3rem; }
+  .singer_container ul .border:after {
+    border-bottom: 1px solid #e5e5e5; }

@@ -169,7 +169,6 @@ class PlayControl extends Component {
     }
     resetPlayStatus() {
         this.setState({
-            caching: true,
             playingTime: 0
         })
     }

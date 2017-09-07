@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import './style/index.css'
 import SongTabHeader from './SongTabHeader'
-import MusicListCell from './MusicListCell'
 import ListDetail from './ListDetail'
+import SingerList from 'container/songList/SingerList'
 import Tab from '../tab/Tab'
+import PlayList from './PlayList'
 import PropTypes from 'prop-types'
 
 class SongList extends Component {
@@ -47,16 +48,10 @@ class SongList extends Component {
         return (
             <div className="song_list">
                 <SongTabHeader tab={this.state.tab} changeTab={this.changeTab} />
-                <div className="list_wrapper">
-                    {this.props.songList.listData.map((item, index) => {
-                        return (
-                            <MusicListCell
-                                cellData={item}
-                                key={item.id}
-                                switchListDetail={this.switchListDetail} />
-                        )
-                    })}
-                </div>
+                {this.state.tab === 0 && <PlayList
+                    switchListDetail={this.switchListDetail}
+                    songList={this.props.songList} />}
+                {this.state.tab === 1 && <SingerList />}
                 <Tab match={this.props.match} history={this.props.history} />
                 {
                     this.state.showDetail && (

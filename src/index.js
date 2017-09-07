@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 import thunkMiddleware from 'redux-thunk'
-import player from './reducers/appReducer'
+import reducers from 'reducers/app'
 import Fastclick from 'fastclick'
 
 Fastclick.attach(document.body)
@@ -21,7 +21,7 @@ const history = createHistory()
 const middlewareOfRouter = routerMiddleware(history)
 const store = createStore(
     combineReducers({
-        ...player,
+        ...reducers,
         router: routerReducer
     }),
     composeEnhancers(
