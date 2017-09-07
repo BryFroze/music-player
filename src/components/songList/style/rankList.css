@@ -1,0 +1,20 @@
+.rank_list {
+  position: absolute;
+  top: 45px;
+  bottom: 55px;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+  font-size: 0.24rem; }
+  .rank_list .line {
+    display: flex;
+    padding: 0 0.1rem;
+    margin-bottom: 0.2rem; }
+    .rank_list .line p {
+      flex: 1;
+      text-align: center; }
+      .rank_list .line p img {
+        width: 100%;
+        border-radius: 4px; }
+    .rank_list .line p:nth-child(2) {
+      margin: 0 0.1rem; }

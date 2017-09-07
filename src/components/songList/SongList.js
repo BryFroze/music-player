@@ -3,6 +3,7 @@ import './style/index.css'
 import SongTabHeader from './SongTabHeader'
 import ListDetail from './ListDetail'
 import SingerList from 'container/songList/SingerList'
+import RankList from './RankList'
 import Tab from '../tab/Tab'
 import PlayList from './PlayList'
 import PropTypes from 'prop-types'
@@ -52,6 +53,7 @@ class SongList extends Component {
                     switchListDetail={this.switchListDetail}
                     songList={this.props.songList} />}
                 {this.state.tab === 1 && <SingerList />}
+                {this.state.tab === 2 && <RankList />}
                 <Tab match={this.props.match} history={this.props.history} />
                 {
                     this.state.showDetail && (
