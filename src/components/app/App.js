@@ -1,29 +1,13 @@
 import React, { Component } from 'react'
 import './style/app.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Bundle from './Bundle'
-
-// import List from '../list/List'
-// import SongList from 'container/songList/SongList'
-// import List from 'container/list/ListContainer'
-// import Play from 'container/play/Play'
 import RealAudio from 'container/play/RealAudio'
 import Loading from '../loading/Spinner'
-const SongList = (props) => (
-    <Bundle load={() => import('container/songList/SongList')}>
-        {(Comp) => <Comp {...props}/>}
-    </Bundle>
-)
-const List = (props) => (
-    <Bundle load={() => import('container/list/ListContainer')}>
-        {(Comp) => <Comp {...props}/>}
-    </Bundle>
-)
-const Play = (props) => (
-    <Bundle load={() => import('container/play/Play')}>
-        {(Comp) => <Comp {...props}/>}
-    </Bundle>
-)
+import AsyncLoad from 'components/bundle/AsyncLoad'
+
+const SongList = (props) => AsyncLoad(import('container/songList/SongList'), props)
+const List = (props) => AsyncLoad(import('container/list/ListContainer'), props)
+const Play = (props) => AsyncLoad(import('container/play/Play'), props)
 
 class App extends Component {
     constructor(props) {
