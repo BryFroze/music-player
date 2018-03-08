@@ -39,11 +39,11 @@ class ListDetail extends Component {
                 })
                 ajax.post(`/playlist/detail`, `id=${this.props.listId}`).then(res => {
                     this.setState({
-                        playList: res.playlist
+                        playList: res.result
                     })
                     storage.save({
                         name: 'playlist',
-                        data: JSON.stringify(res.playlist)
+                        data: JSON.stringify(res.result)
                     })
                     this.setState({
                         loading: false
@@ -103,7 +103,7 @@ class ListDetail extends Component {
                                 <p>
                                     <span>{item.name}</span>
                                     <span>
-                                        {item.ar[0].name} - {item.al.name}
+                                        {item.artists[0].name} - {item.album.name}
                                     </span>
                                 </p>
                             </div>

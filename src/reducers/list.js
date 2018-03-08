@@ -13,7 +13,7 @@ const initialState = {
 export function getList(key, data) {
     return (dispatch, getState) => {
         let state = getState()
-        if (!state.list.listData.playlist) {
+        if (!state.list.listData.result) {
             // 判断本地存储里是否保存有数据
             let list = storage.read('list')
             if (list) {
@@ -21,7 +21,7 @@ export function getList(key, data) {
                 dispatch(setList(obj))
                 dispatch({
                     type: 'SET_PLAY_LIST',
-                    playlist: obj.playlist.tracks
+                    playlist: obj.result.tracks
                 })
             } else if (key && data) {
                 state.list.loading = true
@@ -29,7 +29,7 @@ export function getList(key, data) {
                     dispatch(setList(res))
                     dispatch({
                         type: 'SET_PLAY_LIST',
-                        playlist: res.playlist.tracks
+                        playlist: res.result.tracks
                     })
                     storage.save({
                         name: 'list',

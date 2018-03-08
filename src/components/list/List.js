@@ -16,7 +16,7 @@ class List extends Component {
         this.props.getListData('/playlist/detail', 'id=319907008')
     }
     toPlay = (id, index) => {
-        this.props.updatePlayingList(this.props.list.playlist, this.props.list.listData.playlist.id)
+        this.props.updatePlayingList(this.props.list.playlist, this.props.list.listData.result.id)
         this.props.updatePlayNumber(index)
         this.props.history.push({
             pathname: `play/${id}`
@@ -24,10 +24,10 @@ class List extends Component {
     }
     // 生成歌曲列表html函数
     generateList = () => {
-        if (this.props.list.listData.playlist) {
+        if (this.props.list.listData.result) {
             return (
                 <ul>
-                    {this.props.list.listData.playlist.tracks.map((item, index) => {
+                    {this.props.list.listData.result.tracks.map((item, index) => {
                         return (
                             <li 
                                 key={item.id} 
@@ -41,7 +41,7 @@ class List extends Component {
                                         {item.name}
                                     </span>
                                     <span>
-                                        {item.ar[0].name + ' - ' + item.al.name}
+                                        {item.artists[0].name + ' - ' + item.album.name}
                                     </span>
                                 </p>
                             </li>

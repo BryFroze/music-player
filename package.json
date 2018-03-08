@@ -2,7 +2,7 @@
   "name": "music-player",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://www.by2z.cn:3000",
+  "proxy": "http://www.by2z.cn",
   "homepage": "http://www.by2z.cn/react-music",
   "dependencies": {
     "antd": "^2.13.0",
