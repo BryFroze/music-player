@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import './style/list.css'
 import Tab from '../tab/Tab'
+import { inject, observer } from 'mobx-react';
 
+@inject('favouriteList') @observer
 class List extends Component {
     // 歌单id: 319907008
     // /api/search?keywords=海阔天空
@@ -12,11 +14,13 @@ class List extends Component {
             id: 319907008
         }
     }
+
+    // 获取列表
     getList = () => {
-        this.props.getListData('/playlist/detail', 'id=319907008')
+        this.props.favouriteList.getList('/playlist/detail', 'id=319907008')
     }
     toPlay = (id, index) => {
-        this.props.updatePlayingList(this.props.list.playlist, this.props.list.listData.result.id)
+        this.props.updatePlayingList(this.props.favouriteList.store.playlist, this.props.favouriteList.store.listData.result.id)
         this.props.updatePlayNumber(index)
         this.props.history.push({
             pathname: `play/${id}`
@@ -24,10 +28,10 @@ class List extends Component {
     }
     // 生成歌曲列表html函数
     generateList = () => {
-        if (this.props.list.listData.result) {
+        if (this.props.favouriteList.store.listData.result) {
             return (
                 <ul>
-                    {this.props.list.listData.result.tracks.map((item, index) => {
+                    {this.props.favouriteList.store.listData.result.tracks.map((item, index) => {
                         return (
                             <li 
                                 key={item.id} 
@@ -52,6 +56,7 @@ class List extends Component {
         }
     }
     componentDidMount() {
+        console.log(this.props)
         this.getList()
         this.scrollEl.scrollTop = this.props.scrollDis
     }
@@ -65,7 +70,7 @@ class List extends Component {
         return (
             <div className="list">
                 <header className="border">
-                    {this.props.list.title}
+                    {this.props.favouriteList.store.title}
                 </header>
                 <section ref={el => this.scrollEl = el}>
                      {this.generateList()}

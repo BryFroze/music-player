@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
+import { observer } from 'mobx-react'
 import './style/ListDetail.css'
 import ajax from '../../utils/ajax'
 import storage from '../../utils/storage'
 let Spinner = require('react-spinkit')
 
+@observer
 class ListDetail extends Component {
     static PropTypes = {
         switchListDetail: PropTypes.func,
