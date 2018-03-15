@@ -1,42 +1,42 @@
 import React, { Component } from 'react'
 import './style/index.css'
 import SongTabHeader from './SongTabHeader'
-// import ListDetail from './ListDetail'
+import ListDetail from './ListDetail'
 import SingerList from './SingerList'
 import RankList from './RankList'
 import Tab from '../tab/Tab'
 import PlayList from './PlayList'
 import { inject, observer } from 'mobx-react'
+import { observable, action } from 'mobx'
 
 @inject('songListStore') @observer
 class SongList extends Component {
-    constructor() {
-        super()
-        this.state = {
-            tab: 0,
-            showDetail: false,
-            listId: 0,
-            imgUrl: "",
-            title: "",
-            creator: {}
-        }
+    @observable store = {
+        tab: 0,
+        showDetail: false,
+        listId: 0,
+        imgUrl: "",
+        title: "",
+        creator: {}
     }
+
+    @action
     changeTab = (index) => {
-        this.setState({
-            tab: index
-        })
+        this.store.tab = index
     }
+
+    // 切换歌单详细信息
+    @action
     switchListDetail = (boo, item) => {
-        this.setState({
-            showDetail: boo
-        })
+        this.store.showDetail = boo
         if (item) {
-            this.setState({
+            this.store = {
+                ...this.store,
                 listId: item.id,
                 imgUrl: item.coverImgUrl,
                 title: item.name,
                 creator: item.creator
-            })
+            }
         }
     }
     componentDidMount() {
@@ -45,25 +45,25 @@ class SongList extends Component {
     render () {
         return (
             <div className="song_list">
-                <SongTabHeader tab={this.state.tab} changeTab={this.changeTab} />
-                {this.state.tab === 0 && <PlayList
-                    switchListDetail={this.switchListDetail}
-                    songList={this.props.songListStore.store} />}
-                {this.state.tab === 1 && <SingerList />}
-                {this.state.tab === 2 && <RankList />}
+                <SongTabHeader tab={this.store.tab} changeTab={this.changeTab} />
+                {this.store.tab === 0 && <PlayList 
+                    songList={this.props.songListStore.store}
+                    switchListDetail={this.switchListDetail} />}
+                {this.store.tab === 1 && <SingerList />}
+                {this.store.tab === 2 && <RankList />}
                 <Tab />
-                {/* {
-                    this.state.showDetail && (
+                {/* 歌单详细信息的显示 */}
+                {
+                    this.store.showDetail && (
                         <ListDetail
-                            listId={this.state.listId}
-                            imgUrl={this.state.imgUrl}
-                            title={this.state.title}
-                            creator={this.state.creator}
+                            listId={this.store.listId}
+                            imgUrl={this.store.imgUrl}
+                            title={this.store.title}
+                            creator={this.store.creator}
                             switchListDetail={this.switchListDetail}
-                            updatePlayingList={this.props.updatePlayingList}
                             updatePlayNumber={this.props.updatePlayNumber} />
                     )
-                } */}
+                }
             </div>
         )
     }

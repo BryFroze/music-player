@@ -7,7 +7,8 @@ function getStateFromCache() {
 	let listData = storage.read("songList")
 	return {
 		listData: listData ? JSON.parse(listData) : [],
-		singerList: singerList ? JSON.parse(singerList) : []
+        singerList: singerList ? JSON.parse(singerList) : [],
+        isShowPlaylist: false
 	}
 }
 
@@ -52,7 +53,13 @@ class SongListStore {
                 })
             })
 		}
-	}
+    }
+    
+    // 切换显示歌单信息
+    @action.bound
+    switchPlaylistInfo() {
+        this.store.isShowPlaylist = !this.store.isShowPlaylist
+    }
 }
 
 export default SongListStore

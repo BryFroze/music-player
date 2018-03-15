@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import './style/ListDetail.css'
-import ajax from '../../utils/ajax'
-import storage from '../../utils/storage'
 let Spinner = require('react-spinkit')
 
-@observer
+@inject('playListStore', 'playingListStore', 'playStatusStore') @observer
 class ListDetail extends Component {
     static PropTypes = {
         switchListDetail: PropTypes.func,
@@ -19,53 +17,16 @@ class ListDetail extends Component {
         location: PropTypes.object.isRequired,
         history: PropTypes.object.isRequired
     }
-    constructor() {
-        super()
-        this.state = {
-            playList: {},
-            loading: false
-        }
-    }
-    getSongListDetail() {
-        let listId = storage.read('listId')
-        let playlist = storage.read('playlist')
-        if (!listId || listId != this.props.listId) {
-            this.setState(() => {
-                return {
-                    loading: true
-                }
-            }, () => {
-                storage.save({
-                    name: 'listId',
-                    data: this.props.listId
-                })
-                ajax.post(`/playlist/detail`, `id=${this.props.listId}`).then(res => {
-                    this.setState({
-                        playList: res.result
-                    })
-                    storage.save({
-                        name: 'playlist',
-                        data: JSON.stringify(res.result)
-                    })
-                    this.setState({
-                        loading: false
-                    })
-                })
-            })
-        } else {
-            this.setState({
-                playList: JSON.parse(playlist)
-            })
-        }
-    }
+
     // 当列表点击时，更新redux的playingList并跳转到播放页
     toPlay = (id, index) => {
-        this.props.updatePlayingList(this.state.playList.tracks, this.props.listId)
-        this.props.updatePlayNumber(index)
+        this.props.playingListStore.updatePlayingList(this.props.playListStore.playList.tracks, this.props.listId)
+        this.props.playStatusStore.updatePlayNumber(index)
         this.props.history.push(`/play/${id}`)
     }
+
     componentWillMount() {
-        this.getSongListDetail()
+        this.props.playListStore.initList(this.props.listId)
     }
     render () {
         return (
@@ -92,8 +53,8 @@ class ListDetail extends Component {
                     <div className="list_blur_bac" style={{backgroundImage: `url(${this.props.imgUrl}`}}></div>
                 </div>
                 <div className="detail_content">
-                    {this.state.loading && <Spinner name="cube-grid" color="orange" />}
-                    {this.state.playList.tracks && this.state.playList.tracks.map((item, index) => {
+                    {this.props.playListStore.store.loading && <Spinner name="cube-grid" color="orange" />}
+                    {this.props.playListStore.store.playList.tracks && this.props.playListStore.store.playList.tracks.map((item, index) => {
                         return (
                             <div
                                 className="content_song_list border"

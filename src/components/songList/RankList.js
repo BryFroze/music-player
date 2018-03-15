@@ -151,6 +151,8 @@ class RankList extends Component {
                                     }
                                 </div>
                             )
+                        } else {
+                            return ''
                         }
                     })
                 }

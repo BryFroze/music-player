@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import MusicListCell from './MusicListCell'
 import './style/playList.css'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
-@observer
+@inject('songListStore') @observer
 class PlayList extends Component {
     render () {
         return (
             <div className="list_wrapper">
-                {this.props.songList.listData.map((item, index) => {
+                {this.props.songListStore.store.listData.map((item, index) => {
                     return (
                         <MusicListCell
                             cellData={item}

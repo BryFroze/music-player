@@ -8,7 +8,7 @@ class SingerList extends Component {
     constructor() {
         super()
         this.state = {
-            isShowInfo: false,
+            isShowSinger: false,
             singerId: 0
         }
     }
@@ -25,7 +25,7 @@ class SingerList extends Component {
     }
     switchInfo = () => {
         this.setState({
-            isShowInfo: !this.state.isShowInfo
+            isShowSinger: !this.state.isShowSinger
         })
     }
     componentDidMount() {
@@ -54,7 +54,7 @@ class SingerList extends Component {
                     }
                 </ul>
                 {
-                    this.state.isShowInfo && <SingerInfo switchInfo={this.switchInfo} id={this.state.singerId}/>
+                    this.state.isShowSinger && <SingerInfo switchInfo={this.switchInfo} id={this.state.singerId}/>
                 }
             </div>
         )
