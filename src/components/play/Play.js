@@ -21,6 +21,7 @@ class Play extends Component {
     @action
     initMusicData (id) {
         !id && (id = this.props.match.params.id)
+        if (this.props.playStatusStore.store.musicId === id) return
         this.store.id = id
         this.props.playStatusStore.initMusicUrl(id) // 获取到歌曲url链接
         this.getMusicLyric(id) // 获取歌词并转换成需要的数据结构
@@ -30,7 +31,6 @@ class Play extends Component {
     // 获取歌词和解析歌词：把时间和文本存为对象，保存到数组中
     getMusicLyric(id) {
         this.props.playStatusStore.getMusicLyric(id).then(res => {
-            console.log(res)
             res.lrc && this.handleLyric(res.lrc.lyric)
         })
     }

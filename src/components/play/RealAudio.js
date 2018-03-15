@@ -17,12 +17,12 @@ class RealAudio extends Component {
         let list = this.props.playingListStore.store.list
         let length = list.length - 1
         let id = 0
-        if (number++ > length) {
+        if (++number > length) {
             number = 0
         }
         id = list[number].id
         let location = this.props.location
-        if ('/play/'.indexOf(location.pathname) !== -1) {
+        if (location.pathname.indexOf('/play/') !== -1) {
             this.props.history.replace({
                 pathname: `/play/${id}`
             })

@@ -185,19 +185,18 @@ class PlayControl extends Component {
         if (type === 1) {
             number++
             if (number > length) number = 0
-            
-            id = this.props.playingListStore.store.list[number].id
         } else {
             number--
             if (number < 0) number = length
-            id = this.props.playingListStore.store.list[number].id
         }
+        id = this.props.playingListStore.store.list[number].id
+
         this.props.history.replace({
             pathname: `/play/${id}`
         })
         this.props.playStatusStore.updatePlayNumber(number)
     }
-    
+
     componentDidMount() {
         setTimeout(() => {
             this.calDistance()

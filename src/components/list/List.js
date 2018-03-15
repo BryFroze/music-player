@@ -3,7 +3,7 @@ import './style/list.css'
 import Tab from '../tab/Tab'
 import { inject, observer } from 'mobx-react';
 
-@inject('favouriteList') @observer
+@inject('favouriteList', 'playingListStore', 'playStatusStore') @observer
 class List extends Component {
     // 歌单id: 319907008
     // /api/search?keywords=海阔天空
@@ -22,8 +22,8 @@ class List extends Component {
 
     // 向播放页跳转
     toPlay = (id, index) => {
-        this.props.updatePlayingList(this.props.favouriteList.store.playlist, this.props.favouriteList.store.listData.result.id)
-        this.props.updatePlayNumber(index)
+        this.props.playingListStore.updatePlayingList(this.props.favouriteList.store.playlist, this.props.favouriteList.store.listData.result.id)
+        this.props.playStatusStore.updatePlayNumber(index)
         this.props.history.push({
             pathname: `play/${id}`
         })
