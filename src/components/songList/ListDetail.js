@@ -18,9 +18,9 @@ class ListDetail extends Component {
         history: PropTypes.object.isRequired
     }
 
-    // 当列表点击时，更新redux的playingList并跳转到播放页
+    // 当列表点击时，更新playingList并跳转到播放页
     toPlay = (id, index) => {
-        this.props.playingListStore.updatePlayingList(this.props.playListStore.playList.tracks, this.props.listId)
+        this.props.playingListStore.updatePlayingList(this.props.playListStore.store.playList.tracks, this.props.listId)
         this.props.playStatusStore.updatePlayNumber(index)
         this.props.history.push(`/play/${id}`)
     }

@@ -1,51 +1,42 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import PlayControl from './PlayControl'
 import RotateImg from './RotateImg'
 import Lyric from './Lyric'
 import './style/play.css'
+import { inject, observer } from 'mobx-react'
+import { observable, action } from 'mobx'
 
+@inject('playStatusStore') @observer
 class Play extends Component {
-    static propTypes = {
-        playStatus: PropTypes.object,
-        playingList: PropTypes.object,
-        initPlayNumber: PropTypes.func,
-        myAudio: PropTypes.object
+
+    @observable store = {
+        showLyric: false,
+        id: 0,
+        lyrics: {},
+        arrayOfTime: []
     }
-    constructor() {
-        super()
-        this.state = {
-            showLyric: false,
-            id: 0,
-            lyrics: {},
-            arrayOfTime: []
-        }
+
+    // 初始化歌曲数据
+    @action
+    initMusicData (id) {
+        !id && (id = this.props.match.params.id)
+        this.store.id = id
+        this.props.playStatusStore.initMusicUrl(id) // 获取到歌曲url链接
+        this.getMusicLyric(id) // 获取歌词并转换成需要的数据结构
+        this.props.playStatusStore.initPlayingSong(id) // 获取歌曲详情数据
     }
-    // 获取歌曲详情
-    getMusicDetail(id) {
-        this.props.getData(`/song/detail`, `ids=${id}`).then(res => {
-            this.props.initPlayStatus({
-                title: res.songs[0].name,
-                musicDetail: res.songs[0],
-                picUrl: res.songs[0].al.picUrl,
-                musicTime: res.songs[0].dt,
-                musicId: id
-            })
-        })
-    }
-    // 获取音乐的url
-    getMusicUrl(id) {
-        this.props.getData(`/music/url`, `id=${id}`).then(res => {
-            this.props.initMusicUrl(res.data[0].url)
-        })
-    }
-    // TODO: 获取歌词和解析歌词：把时间和文本存为对象，保存到数组中
+
+    // 获取歌词和解析歌词：把时间和文本存为对象，保存到数组中
     getMusicLyric(id) {
-        this.props.getData(`/lyric`, `id=${id}`).then(res => {
+        this.props.playStatusStore.getMusicLyric(id).then(res => {
+            console.log(res)
             res.lrc && this.handleLyric(res.lrc.lyric)
         })
     }
+
     // 处理歌词
+    @action
     handleLyric(lyricStr) {
         let lyricArr = lyricStr.split(/\n/)
         // let arReg = /\[ar:*\]$/i
@@ -75,67 +66,51 @@ class Play extends Component {
             }
         }
         arrayOfTime.sort((a, b) => a - b)
-        this.setState({
-            lyrics: obj,
-            arrayOfTime: arrayOfTime
-        })
+        // 处理完的数据赋值
+        this.store.lyrics = obj
+        this.store.arrayOfTime = arrayOfTime
     }
+
     // 切换歌词显示
+    @action
     switchLyric = () => {
-        this.setState(prevState => ({
-            showLyric: !prevState.showLyric
-        }))
+        this.store.showLyric = !this.store.showLyric
     }
     componentDidMount() {
-        let id = this.props.match.params.id
-        this.setState({
-            id: id
-        })
-        this.getMusicDetail(id)
-        this.getMusicUrl(id)
-        this.getMusicLyric(id)
+        this.initMusicData()
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.match.params.id !== this.props.match.params.id) {
             let id = nextProps.match.params.id
-            this.getMusicDetail(id)
-            this.getMusicUrl(id)
-            this.getMusicLyric(id)
+            this.initMusicData(id)
         }
     }
     render () {
         return (
             <div id="play">
                 <header>
-                    {this.props.playStatus.title}
+                    {this.props.playStatusStore.store.title}
                 </header>
                 <div
                     className="blur_bac"
-                    style={{backgroundImage: `url(${this.props.playStatus.picUrl})`}}>
+                    style={{backgroundImage: `url(${this.props.playStatusStore.store.picUrl})`}}>
                 </div>
                 {
-                    this.state.showLyric ?
+                    this.store.showLyric ?
                     <Lyric
                         switchLyric={this.switchLyric}
-                        lyrics={this.state.lyrics}
-                        arrayOfTime={this.state.arrayOfTime}
-                        myAudio={this.props.myAudio}
+                        lyrics={this.store.lyrics}
+                        arrayOfTime={this.store.arrayOfTime}
                         />
                     :                    
                     <RotateImg
-                        picUrl={this.props.playStatus.picUrl}
-                        isPlay={this.props.playStatus.isPlay}
+                        picUrl={this.props.playStatusStore.store.picUrl}
+                        isPlay={this.props.playStatusStore.store.isPlay}
                         switchLyric={this.switchLyric}
                         />
                 }
                 <PlayControl 
                     mid={this.props.match.params.id} 
-                    musicTime={this.props.playStatus.musicTime}
-                    myAudio={this.props.myAudio}
-                    playlist={this.props.playingList.list}
-                    playNumber={this.props.playStatus.playNumber} 
-                    updatePlayNumber={this.props.updatePlayNumber}
-                    changePlayStatus={this.props.changePlayStatus}
                     history={this.props.history}/>
             </div>
         )

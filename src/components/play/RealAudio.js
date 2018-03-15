@@ -1,27 +1,20 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import './style/realAudio.css'
 import { withRouter } from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
 
+@inject('audioStore', 'playStatusStore', 'playingListStore') @observer
 class RealAudio extends Component {
-    static propTypes = {
-        musicUrl: PropTypes.string,
-        playStatus: PropTypes.object,
-        playingList: PropTypes.object,
-        initAudio: PropTypes.func,
-        getData: PropTypes.func,
-        initPlayStatus: PropTypes.func,
-        initMusicUrl: PropTypes.func,
-        updatePlayNumber: PropTypes.func
-    }
     constructor() {
         super()
         this.audio = null
     }
+    
     // 循环下一曲
     playNext() {
-        let number = this.props.playStatus.playNumber
-        let list = this.props.playingList.list
+        let number = this.props.playStatusStore.store.playNumber
+        let list = this.props.playingListStore.store.list
         let length = list.length - 1
         let id = 0
         if (number++ > length) {
@@ -34,20 +27,18 @@ class RealAudio extends Component {
                 pathname: `/play/${id}`
             })
         } else {
-            this.getMusicUrl(id)
+            // 如果是其它页面，audio是后台播放，就发送请求去获取数据
+            this.props.playStatusStore.initMusicUrl(id)
         }
     }
-    // 获取音乐url
-    getMusicUrl(id) {
-        this.props.getData(`/music/url`, `id=${id}`).then(res => {
-            this.props.initMusicUrl(res.data[0].url)
-        })
-    }
+
+    // 歌曲播放结束时，下一曲
     ended = () => {
         this.playNext()
     }
+
     componentDidMount() {
-        this.props.initAudio(this.audio)
+        this.props.audioStore.initAudio(this.audio)
         this.audio.addEventListener('canplay', () => {
             this.audio.play()
         })
@@ -59,7 +50,7 @@ class RealAudio extends Component {
             <div className="real_audio">
                 <div>
                     <audio
-                        src={this.props.musicUrl} 
+                        src={this.props.playStatusStore.store.musicUrl} 
                         type="audio/mpeg" 
                         autoPlay 
                         id="audio"

@@ -8,15 +8,14 @@ import play from '../../icon/play.svg'
 import next from '../../icon/next.svg'
 import list from '../../icon/list.svg'
 import random from '../../icon/random.svg'
+import { inject, observer } from 'mobx-react';
 // import util from '../../utils/ajax'
 // import audiosrc from './source/faded.mp3'
 
+@inject('playingListStore', 'playStatusStore', 'audioStore') @observer
 class PlayControl extends Component {
     static propTypes = {
-        musicTime: PropTypes.number,
         mid: PropTypes.string,
-        playlist: PropTypes.array,
-        playNumber: PropTypes.number,
         initPlayNumber: PropTypes.func
     }
     constructor() {
@@ -41,6 +40,7 @@ class PlayControl extends Component {
             onThisCom: true
         }
     }
+
     // 计算进度条可拖动的最大距离(随屏幕变化)
     calDistance() {
         return new Promise((resolve, reject) => {
@@ -104,14 +104,16 @@ class PlayControl extends Component {
         this.playType = 1 :
         this.playType = 0
     }
+
     // 播放按钮点击事件
     switchPlayBtn = () => {
         if (this.state.playBtn.isPaused) {
-            this.props.myAudio.play()
+            this.props.audioStore.store.myAudio.play()
         } else {
-            this.props.myAudio.pause()
+            this.props.audioStore.store.myAudio.pause()
         }
-        this.props.changePlayStatus()
+
+        this.props.playStatusStore.pauseOrPlay()
         this.setState({
             playBtn: {
                 isPaused: !this.state.playBtn.isPaused
@@ -121,7 +123,7 @@ class PlayControl extends Component {
     // 初始化数据
     initData = () => {
         // await this.getMusicData()
-        this.props.myAudio.addEventListener('canplay', () => {
+        this.props.audioStore.store.myAudio.addEventListener('canplay', () => {
             if (this.state.caching) {
                 this.setState({
                     caching: false
@@ -140,19 +142,19 @@ class PlayControl extends Component {
     }
     // 播放时间定时器
     playInterval() {
-        this.props.myAudio.addEventListener('timeupdate', this.timeUpdate)
+        this.props.audioStore.store.myAudio.addEventListener('timeupdate', this.timeUpdate)
     }
     timeUpdate = () => {
         this.setState((prevState) => {
             return {
-                playingTime: parseInt(this.props.myAudio.currentTime, 10)*1000
+                playingTime: parseInt(this.props.audioStore.store.myAudio.currentTime, 10)*1000
             }
         })
         this.circleLoop()
     }
     // 随时间走动的圆点
     circleLoop() {
-        let progress = parseFloat(this.state.playingTime/this.props.musicTime).toFixed(3)
+        let progress = parseFloat(this.state.playingTime/this.props.playStatusStore.store.musicTime).toFixed(3)
         // console.log(progress)
         let left = this.state.maxDragDis*progress
         this.dragEl.style.left = left + 'px'
@@ -172,25 +174,30 @@ class PlayControl extends Component {
             playingTime: 0
         })
     }
+
+    // 播放歌曲切换
     playChange(type) {
-        this.props.myAudio.pause()
-        let number = this.props.playNumber
-        let length = this.props.playlist.length-1
+        this.props.audioStore.store.myAudio.pause()
+        let number = this.props.playStatusStore.store.playNumber
+        let list = this.props.playingListStore.store.list
+        let length = list.length - 1
         let id;
         if (type === 1) {
             number++
             if (number > length) number = 0
-            id = this.props.playlist[number].id
+            
+            id = this.props.playingListStore.store.list[number].id
         } else {
             number--
             if (number < 0) number = length
-            id = this.props.playlist[number].id
+            id = this.props.playingListStore.store.list[number].id
         }
         this.props.history.replace({
             pathname: `/play/${id}`
         })
-        this.props.updatePlayNumber(number)
+        this.props.playStatusStore.updatePlayNumber(number)
     }
+    
     componentDidMount() {
         setTimeout(() => {
             this.calDistance()
@@ -198,14 +205,14 @@ class PlayControl extends Component {
     }
     componentWillReceiveProps(nextProps) {
         // 只有当myAudio元素正确获取时才能执行相关api操作
-        if (nextProps.musicTime !== 0 && nextProps.myAudio) {
+        if (nextProps.musicTime !== 0 && nextProps.audioStore.store.myAudio) {
             this.playInterval()
             this.initData()
         }
     }
     componentWillUnmount() {
-        this.props.myAudio.removeEventListener('timeupdate', this.timeUpdate)
-        this.props.myAudio.removeEventListener('ended', this.ended)
+        this.props.audioStore.store.myAudio.removeEventListener('timeupdate', this.timeUpdate)
+        this.props.audioStore.store.myAudio.removeEventListener('ended', this.ended)
     }
     render() {
         return (
@@ -228,7 +235,7 @@ class PlayControl extends Component {
                         </i>
                         <i ref={el => this.progressLine = el}></i>
                     </span>
-                    <span>{this.tranformTime(this.props.musicTime)}</span>
+                    <span>{this.tranformTime(this.props.playStatusStore.store.musicTime)}</span>
                 </div>
                 <div className="control_button">
                     <div className="play_order">

@@ -13,6 +13,10 @@ class PlayingListStore {
     updatePlayingList(items, id) {
         this.store.list = items
         this.store.listId = id
+        storage.save({
+            name: 'playingList',
+            data: JSON.stringify(items)
+        })
     }
 }
 

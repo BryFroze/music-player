@@ -1,5 +1,6 @@
-import { observable, action } from "mobx"
+import { observable, action, runInAction } from "mobx"
 import storage from '../utils/storage'
+import ajax from "../utils/ajax"
 
 class PlayStatusStore {
     @observable store = initStore()
@@ -11,6 +12,49 @@ class PlayStatusStore {
     @action.bound
     updatePlayNumber (number) {
         this.store.playNumber = number
+    }
+
+    // 获取当前播放歌曲url
+    @action.bound
+    initMusicUrl (id) {
+        ajax.post(`/music/url`, `id=${id}`).then(res => {
+            runInAction(() => {
+                this.store.musicUrl = res.data[0].url
+            })
+        })
+    }
+
+    // 获取歌词
+    @action.bound
+    getMusicLyric(id) {
+        return new Promise((resolve) => {
+            ajax.post(`/lyric`, `id=${id}`).then(res => {
+                resolve(res)
+            })
+        })
+    }
+
+    // 获取歌曲详情
+    @action.bound
+    initPlayingSong(id) {
+        ajax.post(`/song/detail`, `ids=${id}`).then(res => {
+            runInAction(() => {
+                this.store = {
+                    ...this.store,
+                    title: res.songs[0].name,
+                    musicDetail: res.songs[0],
+                    picUrl: res.songs[0].al.picUrl,
+                    musicTime: res.songs[0].dt,
+                    musicId: id
+                }
+            })
+        })
+    }
+
+    // 暂停功能
+    @action.bound
+    pauseOrPlay() {
+        this.store.isPlay = !this.store.isPlay
     }
 }
 
