@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import './style/listCell.css'
 import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 
+@observer
 class MusicListCell extends Component {
     static propTypes = {
         cellData: PropTypes.object,
@@ -9,7 +11,7 @@ class MusicListCell extends Component {
     }
     render () {
         return (
-            <div className="list_cell" onClick={this.props.switchListDetail.bind(null, true,this.props.cellData)}>
+            <div className="list_cell" onClick={this.props.switchListDetail.bind(null, true, this.props.cellData)}>
                 <div className="background">
                     <img src={this.props.cellData.coverImgUrl} alt="" />
                 </div>

@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
 import './style/singerList.css'
 import SingerInfo from 'container/songList/SingerInfo'
+import { inject, observer } from 'mobx-react'
 
+@inject('songListStore') @observer
 class SingerList extends Component {
     constructor() {
         super()
         this.state = {
-            singerList: [],
             isShowInfo: false,
             singerId: 0
         }
     }
-    getSingerList(key, data) {
-        this.props.getData(key, data).then(res => {
-            this.props.updateSingerList(res.artists)
-        })
+    getSingerList() {
+        this.props.songListStore.getSingerList()
     }
     showSingerInfo(id) {
         this.switchInfo()
@@ -30,21 +29,14 @@ class SingerList extends Component {
         })
     }
     componentDidMount() {
-        let list = this.props.singerList
-        if (!list.length) {
-            this.getSingerList('/top/artists', 'offset=0&limit=100')
-        } else {
-            this.setState({
-                singerList: list
-            })
-        }
+        this.getSingerList()
     }
     render () {
         return (
             <div className="singer_container">
                 <ul>
                     {
-                        this.props.singerList.map((item, index) => {
+                        this.props.songListStore.store.singerList.map((item, index) => {
                             return (
                                 <li
                                     key={item.id}

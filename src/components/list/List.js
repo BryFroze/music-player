@@ -19,6 +19,8 @@ class List extends Component {
     getList = () => {
         this.props.favouriteList.getList('/playlist/detail', 'id=319907008')
     }
+
+    // 向播放页跳转
     toPlay = (id, index) => {
         this.props.updatePlayingList(this.props.favouriteList.store.playlist, this.props.favouriteList.store.listData.result.id)
         this.props.updatePlayNumber(index)
@@ -26,6 +28,7 @@ class List extends Component {
             pathname: `play/${id}`
         })
     }
+
     // 生成歌曲列表html函数
     generateList = () => {
         if (this.props.favouriteList.store.listData.result) {
@@ -55,17 +58,18 @@ class List extends Component {
             )
         }
     }
+
     componentDidMount() {
-        console.log(this.props)
         this.getList()
         this.scrollEl.scrollTop = this.props.scrollDis
     }
     componentWillUnmount() {
         if (this.scrollEl) {
             let scrollDis = this.scrollEl.scrollTop
-            this.props.saveScrollDis(scrollDis)
+            this.props.favouriteList.saveScrollDis(scrollDis)
         }
     }
+
     render () {
         return (
             <div className="list">
@@ -75,7 +79,7 @@ class List extends Component {
                 <section ref={el => this.scrollEl = el}>
                      {this.generateList()}
                 </section>
-                <Tab match={this.props.match} history={this.props.history} />
+                <Tab />
             </div>
         )
     }

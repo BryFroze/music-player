@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import './style/index.css'
 import SongTabHeader from './SongTabHeader'
-import ListDetail from './ListDetail'
-import SingerList from 'container/songList/SingerList'
+// import ListDetail from './ListDetail'
+import SingerList from './SingerList'
 import RankList from './RankList'
 import Tab from '../tab/Tab'
 import PlayList from './PlayList'
-import PropTypes from 'prop-types'
+import { inject, observer } from 'mobx-react'
 
+@inject('songListStore') @observer
 class SongList extends Component {
-    static propTypes = {
-        songList: PropTypes.object,
-        getSongList: PropTypes.func
-    }
     constructor() {
         super()
         this.state = {
@@ -43,7 +40,7 @@ class SongList extends Component {
         }
     }
     componentDidMount() {
-        this.props.getSongList()
+        this.props.songListStore.getSongList()
     }
     render () {
         return (
@@ -51,11 +48,11 @@ class SongList extends Component {
                 <SongTabHeader tab={this.state.tab} changeTab={this.changeTab} />
                 {this.state.tab === 0 && <PlayList
                     switchListDetail={this.switchListDetail}
-                    songList={this.props.songList} />}
+                    songList={this.props.songListStore.store} />}
                 {this.state.tab === 1 && <SingerList />}
                 {this.state.tab === 2 && <RankList />}
-                <Tab match={this.props.match} history={this.props.history} />
-                {
+                <Tab />
+                {/* {
                     this.state.showDetail && (
                         <ListDetail
                             listId={this.state.listId}
@@ -66,7 +63,7 @@ class SongList extends Component {
                             updatePlayingList={this.props.updatePlayingList}
                             updatePlayNumber={this.props.updatePlayNumber} />
                     )
-                }
+                } */}
             </div>
         )
     }

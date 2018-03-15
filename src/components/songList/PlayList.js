@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import MusicListCell from './MusicListCell'
 import './style/playList.css'
+import { observer } from 'mobx-react'
 
+@observer
 class PlayList extends Component {
     render () {
         return (

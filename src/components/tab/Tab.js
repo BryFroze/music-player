@@ -4,6 +4,7 @@ import findIcon from './img/find.svg'
 import findIconActive from './img/find_active.svg'
 import myMusicIcon from './img/my_music.svg'
 import myMusicIconActive from './img/my_music_active.svg'
+import { withRouter } from 'react-router-dom'
 
 class Tab extends Component {
     constructor() {
@@ -19,7 +20,7 @@ class Tab extends Component {
                     tab: 0
                 })
                 break
-            case "/list":
+            case "/favor":
                 this.setState({
                     tab: 1
                 })
@@ -51,7 +52,7 @@ class Tab extends Component {
                     <span>发现音乐</span>
                 </div>
                 <div
-                    onClick={() => this.toRouter('/list')}
+                    onClick={() => this.toRouter('/favor')}
                     className={this.state.tab === 1 ? "tab_cell active" : "tab_cell"}>
                     {this.state.tab === 1 ? 
                         <img src={myMusicIconActive} alt="" /> :
@@ -64,4 +65,4 @@ class Tab extends Component {
     }
 }
 
-export default Tab
+export default withRouter(Tab)
