@@ -104,8 +104,6 @@ class Play extends Component {
                         />
                     :                    
                     <RotateImg
-                        picUrl={this.props.playStatusStore.store.picUrl}
-                        isPlay={this.props.playStatusStore.store.isPlay}
                         switchLyric={this.switchLyric}
                         />
                 }

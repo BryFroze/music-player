@@ -21,6 +21,7 @@ class RealAudio extends Component {
             number = 0
         }
         id = list[number].id
+        this.props.playStatusStore.updatePlayNumber(number)
         let location = this.props.location
         if (location.pathname.indexOf('/play/') !== -1) {
             this.props.history.replace({

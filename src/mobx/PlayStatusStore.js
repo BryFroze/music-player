@@ -12,6 +12,10 @@ class PlayStatusStore {
     @action.bound
     updatePlayNumber (number) {
         this.store.playNumber = number
+        storage.save({
+            name: 'playNumber',
+            data: number
+        })
     }
 
     // 获取当前播放歌曲url
