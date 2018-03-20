@@ -1,35 +1,30 @@
 import React, { Component } from 'react'
 import './style/singerInfo.css'
+import { inject, observer } from 'mobx-react';
 
+@inject('singer') @observer
 class SingerInfo extends Component {
     constructor() {
         super()
         this.state = {
-            singerInfo: {
-                artist: {}
-            },
             infoTab: 0,
             tabArr: ['热门', '专辑', '歌手介绍']
         }
     }
-    getSingerInfo(key, data) {
-        this.props.getData(key, data).then(res => {
-            this.setState({
-                singerInfo: res
-            })
-        })
-    }
+
     componentDidMount() {
-        this.getSingerInfo('/artists', `id=${this.props.id}`)
+        // console.log('mounted')
+        this.props.singer.getSingerInfo(this.props.id)
     }
+
     render () {
         return (
             <div className="singer_info">
-                <div className="singer_header" style={{backgroundImage: `url(${this.state.singerInfo.artist.img1v1Url || ''})`}}>
+                <div className="singer_header" style={{backgroundImage: `url(${this.props.singer.store.singerInfo.artist.img1v1Url || ''})`}}>
                     <p className="title">
                         <span onClick={this.props.switchInfo}>{'<'}</span>
                         <span>
-                            {this.state.singerInfo.artist.name}
+                            {this.props.singer.store.singerInfo.artist.name}
                         </span>
                     </p>
                 </div>

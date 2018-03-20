@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './style/singerList.css'
-import SingerInfo from 'container/songList/SingerInfo'
+import SingerInfo from './SingerInfo'
 import { inject, observer } from 'mobx-react'
 
 @inject('songListStore') @observer

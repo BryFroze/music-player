@@ -9,7 +9,7 @@
   overflow: hidden;
   font-size: 0.26rem; }
   .singer_info .singer_header {
-    height: 4.5rem;
+    height: 5.6rem;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     color: #fff;
@@ -39,7 +39,7 @@
     background-color: rgba(8, 7, 7, 0.4); }
   .singer_info .singer_content {
     position: absolute;
-    top: 4.5rem;
+    top: 5.6rem;
     bottom: 0;
     left: 0;
     right: 0; }

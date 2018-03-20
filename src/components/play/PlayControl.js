@@ -15,8 +15,7 @@ import { inject, observer } from 'mobx-react';
 @inject('playingListStore', 'playStatusStore', 'audioStore') @observer
 class PlayControl extends Component {
     static propTypes = {
-        mid: PropTypes.string,
-        initPlayNumber: PropTypes.func
+        mid: PropTypes.string
     }
     constructor() {
         super()
